@@ -45,9 +45,9 @@ An interactive, single-page HTML resume with a retro game-inspired design. Built
 Why a single HTML file?
 This project intentionally uses one self-contained file because:
 
-💻 Small codebase = Faster loading and simpler maintenance
-✏️ Edit anywhere - No need to switch between multiple files/folders
-🚫 Zero build process - Just edit and refresh!
-📦 Portable - Easy to share or deploy anywhere
+- 💻 Small codebase = Faster loading and simpler maintenance
+- ✏️ Edit anywhere - No need to switch between multiple files/folders
+- 🚫 Zero build process - Just edit and refresh!
+- 📦 Portable - Easy to share or deploy anywhere
 
 `"For small projects, complexity should serve the user experience - not the file structure."`
