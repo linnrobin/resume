@@ -36,3 +36,18 @@ An interactive, single-page HTML resume with a retro game-inspired design. Built
 1. Clone the repo:
    ```bash
    git clone https://github.com/your-username/gamified-resume.git
+
+2. Open **index.html** in any modern browser.
+
+3. Play with the interactive elements!
+
+## 🧠 Design Philosophy
+Why a single HTML file?
+This project intentionally uses one self-contained file because:
+
+💻 Small codebase = Faster loading and simpler maintenance
+✏️ Edit anywhere - No need to switch between multiple files/folders
+🚫 Zero build process - Just edit and refresh!
+📦 Portable - Easy to share or deploy anywhere
+
+`"For small projects, complexity should serve the user experience - not the file structure."`
