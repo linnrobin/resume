@@ -7,7 +7,7 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts - Press Start 2P for a retro game feel, Inter for content -->
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start 2P&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Tone.js CDN for sound effects -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <style>
@@ -43,8 +43,6 @@
         details summary {
             cursor: pointer;
             list-style: none;
-            /* Responsive padding using Tailwind classes */
-            /* padding: 1.5rem 2rem; */
             background-color: #2d3748; /* Darker gray for summary */
             border-radius: 1rem; /* More rounded */
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
@@ -94,8 +92,6 @@
 
         /* Adventure Log Content */
         details .accordion-content {
-            /* Responsive padding using Tailwind classes */
-            /* padding: 2rem; */
             background-color: #2d3748; /* Darker gray for content */
             border: 2px solid #48bb78; /* Green border for content */
             border-top: none;
@@ -112,8 +108,6 @@
         .skill-tag {
             background-color: #4a5568; /* Dark gray */
             color: #f6e05e; /* Gold text */
-            /* Responsive padding using Tailwind classes */
-            /* padding: 0.75rem 1.5rem; */
             border-radius: 9999px; /* Full pill shape */
             font-weight: 600;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
@@ -311,12 +305,12 @@
 </head>
 <body class="p-4 sm:p-6 md:p-8 lg:p-12">
     <!-- Mute Button -->
-    <button id="mute-button" class="fixed top-4 right-4 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-full shadow-lg z-50 transition-colors duration-200 no-print">
+    <button id="mute-button" class="fixed top-4 left-4 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-full shadow-lg z-50 transition-colors duration-200 no-print">
         Mute Sound
     </button>
 
     <!-- Scroll to Contact Button -->
-    <button id="scroll-to-contact-button" class="fixed bottom-4 right-4 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-6 rounded-full shadow-lg z-50 transition-colors duration-200 no-print flex items-center space-x-2">
+    <button id="scroll-to-contact-button" class="fixed bottom-4 left-4 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-6 rounded-full shadow-lg z-50 transition-colors duration-200 no-print flex items-center space-x-2">
         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.76-1.39L2 17l1.39-3.24A8.842 8.842 0 012 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path></svg>
         <span>Contact Me</span>
     </button>
@@ -540,8 +534,13 @@
                     <!-- PROJECT-1: BKKBoutique -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
                         <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
-                            PROJECT-1: BKKBoutique <span class="font-normal text-gray-400 ml-3">- Ms. Shan</span>
-                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Jan 2015 - Present | Role: Project Manager</span>
+                            <div class="flex-grow">
+                                PROJECT-1: BKKBoutique <span class="font-normal text-gray-400 ml-3">- Ms. Shan</span>
+                            </div>
+                            <div class="flex flex-col items-end text-right ml-auto mr-2">
+                                <span class="text-sm text-gray-500 font-medium">Jan 2015 - Present</span>
+                                <span class="text-sm text-gray-500 font-medium">Role: Project Manager</span>
+                            </div>
                         </summary>
                         <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: A digital transformation for a client who wanted to streamline their manual business flow for better engagement with customers and easier data analytics and compilation. The project has been expanded three times more from conception.</p>
@@ -562,8 +561,13 @@
                     <!-- PROJECT-2: Botak Game -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
                         <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
-                            PROJECT-2: Botak Game <span class="font-normal text-gray-400 ml-3">- Mr. Sim</span>
-                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Jan 2015 - Present | Role: Project Manager</span>
+                            <div class="flex-grow">
+                                PROJECT-2: Botak Game <span class="font-normal text-gray-400 ml-3">- Mr. Sim</span>
+                            </div>
+                            <div class="flex flex-col items-end text-right ml-auto mr-2">
+                                <span class="text-sm text-gray-500 font-medium">Jan 2015 - Present</span>
+                                <span class="text-sm text-gray-500 font-medium">Role: Project Manager</span>
+                            </div>
                         </summary>
                         <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: Transform an obsolete Flash game into modern technology. The game has a lot of requirements for the backend and predetermined game rules, in which we decided to use microservice architecture so that one service won't be disturbing others while another service is being updated.</p>
@@ -582,8 +586,13 @@
                     <!-- PROJECT-3: inGO Ads -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
                         <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
-                            PROJECT-3: inGO Ads <span class="font-normal text-gray-400 ml-3">- Inhouse</span>
-                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Jun 2015 - Jan 2020 | Role: Product Manager / Project Manager</span>
+                            <div class="flex-grow">
+                                PROJECT-3: inGO Ads <span class="font-normal text-gray-400 ml-3">- Inhouse</span>
+                            </div>
+                            <div class="flex flex-col items-end text-right ml-auto mr-2">
+                                <span class="text-sm text-gray-500 font-medium">Jun 2015 - Jan 2020</span>
+                                <span class="text-sm text-gray-500 font-medium">Role: Product Manager / Project Manager</span>
+                            </div>
                         </summary>
                         <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: A platform where users can look at cinema schedules, news feeds, job boards, advertisements, local promos, and local events, while Admins can also curate the "posting" through the back office. Later expanded into PPOB with third-party payment gateway API integration, digital currency, discount voucher system, and blast promotions.</p>
@@ -604,8 +613,13 @@
                     <!-- PROJECT-4: RSBT -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
                         <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
-                            PROJECT-4: RSBT <span class="font-normal text-gray-400 ml-3">- Mr. Hendra</span>
-                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Mar 2018 - Aug 2021 | Role: Project Manager</span>
+                            <div class="flex-grow">
+                                PROJECT-4: RSBT <span class="font-normal text-gray-400 ml-3">- Mr. Hendra</span>
+                            </div>
+                            <div class="flex flex-col items-end text-right ml-auto mr-2">
+                                <span class="text-sm text-gray-500 font-medium">Mar 2018 - Aug 2021</span>
+                                <span class="text-sm text-gray-500 font-medium">Role: Project Manager</span>
+                            </div>
                         </summary>
                         <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: A local hospital wanted to modernize and simplify its patient waiting process. Therefore, they opted to make a self-register system in which users can self-register through their android device before coming to the hospital. After arriving at the hospital, patients can confirm their arrival and get a queue ticket from the QR code that they scanned when registering. The system also has a countdown timer when it's their turn to see the doctor, and after finishing the visit, they can also rate the service. Later it expanded with BPJS queue integration. This project was expanded one time for BPJS integration.</p>
@@ -624,8 +638,13 @@
                     <!-- PROJECT-5: Telemarketing System -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
                         <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
-                            PROJECT-5: Telemarketing System <span class="font-normal text-gray-400 ml-3">- Mr. Eric</span>
-                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Aug 2020 - Aug 2022 | Role: Fullstack Developer / Project Manager</span>
+                            <div class="flex-grow">
+                                PROJECT-5: Telemarketing System <span class="font-normal text-gray-400 ml-3">- Mr. Eric</span>
+                            </div>
+                            <div class="flex flex-col items-end text-right ml-auto mr-2">
+                                <span class="text-sm text-gray-500 font-medium">Aug 2020 - Aug 2022</span>
+                                <span class="text-sm text-gray-500 font-medium">Role: Fullstack Developer / Project Manager</span>
+                            </div>
                         </summary>
                         <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: The marketing team wanted to branch out to cold calling because of COVID, hence the telemarketing system is created to simplify relevant marketers so they can focus more on profit-making and get a better closing rate and customer retention. Using the likes of WhatsApp API, skype API, and Twilio API.</p>
@@ -653,8 +672,13 @@
                     <!-- PROJECT-6: HRD App -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
                         <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
-                            PROJECT-6: HRD App <span class="font-normal text-gray-400 ml-3">- Mr. Eric</span>
-                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Oct 2020 - Aug 2022 | Role: Product Manager / Project Manager</span>
+                            <div class="flex-grow">
+                                PROJECT-6: HRD App <span class="font-normal text-gray-400 ml-3">- Mr. Eric</span>
+                            </div>
+                            <div class="flex flex-col items-end text-right ml-auto mr-2">
+                                <span class="text-sm text-gray-500 font-medium">Oct 2020 - Aug 2022</span>
+                                <span class="text-sm text-gray-500 font-medium">Role: Product Manager / Project Manager</span>
+                            </div>
                         </summary>
                         <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: Due to COVID, all human resources were required to WFH with some occasional on-site visits, the app must be mobile-friendly with GPS coordinate integration with multiple locations and buffers, anti-fraud login with multiple credential checks, also future GA and payroll integration.</p>
@@ -674,8 +698,13 @@
                     <!-- PROJECT-7: Game System Integrator -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
                         <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
-                            PROJECT-7: Game System Integrator <span class="font-normal text-gray-400 ml-3">- Mr. Alim</span>
-                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Mar 2018 - Present | Role: Project Manager / Product Manager / DevOps</span>
+                            <div class="flex-grow">
+                                PROJECT-7: Game System Integrator <span class="font-normal text-gray-400 ml-3">- Mr. Alim</span>
+                            </div>
+                            <div class="flex flex-col items-end text-right ml-auto mr-2">
+                                <span class="text-sm text-gray-500 font-medium">Mar 2018 - Present</span>
+                                <span class="text-sm text-gray-500 font-medium">Role: Project Manager / Product Manager / DevOps</span>
+                            </div>
                         </summary>
                         <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: System Integration framework that can be integrated with other game providers using APIs, with the ability to handle thousands of concurrent users at the same time, and tens of thousands of requests. The system also must be able to be cloned separately because it will be sold as SaaS for interested individuals.</p>
@@ -702,8 +731,13 @@
                     <!-- PROJECT-8: SEO Manager -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
                         <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
-                            PROJECT-8: SEO Manager <span class="font-normal text-gray-400 ml-3">- Mr. Ahua</span>
-                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Feb 2023 - Present | Role: Project Manager / Digital Marketing</span>
+                            <div class="flex-grow">
+                                PROJECT-8: SEO Manager <span class="font-normal text-gray-400 ml-3">- Mr. Ahua</span>
+                            </div>
+                            <div class="flex flex-col items-end text-right ml-auto mr-2">
+                                <span class="text-sm text-gray-500 font-medium">Feb 2023 - Present</span>
+                                <span class="text-sm text-gray-500 font-medium">Role: Project Manager / Digital Marketing</span>
+                            </div>
                         </summary>
                         <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: Create, Oversee and implement the company's search engine optimization strategy. Have in-depth knowledge of SEO techniques, keyword research, and analysis. And also responsible for improving the website's visibility in search engine results pages (SERPs), driving organic traffic, and maximizing ROI.</p>
@@ -724,8 +758,13 @@
                     <!-- PROJECT-X: Various Company Profile / Landing Page / Simple Fullstack App -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
                         <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
-                            PROJECT-X: Various Company Profile / Landing Page / Simple Fullstack App <span class="font-normal text-gray-400 ml-3">- Various</span>
-                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Mar 2015 - Present | Role: Fullstack Developer / Project Manager</span>
+                            <div class="flex-grow">
+                                PROJECT-X: Various Company Profile / Landing Page / Simple Fullstack App <span class="font-normal text-gray-400 ml-3">- Various</span>
+                            </div>
+                            <div class="flex flex-col items-end text-right ml-auto mr-2">
+                                <span class="text-sm text-gray-500 font-medium">Mar 2015 - Present</span>
+                                <span class="text-sm text-gray-500 font-medium">Role: Fullstack Developer / Project Manager</span>
+                            </div>
                         </summary>
                         <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: Some are one-off projects such as company profiles, people's portfolios, simple user management apps, inventory apps, landing pages, mini-games for digital marketing integration, etc.</p>
@@ -745,8 +784,13 @@
                     <!-- SOME OTHER PROJECTS -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
                         <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
-                            SOME OTHER PROJECTS
-                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Various Dates | Various Roles</span>
+                            <div class="flex-grow">
+                                SOME OTHER PROJECTS
+                            </div>
+                            <div class="flex flex-col items-end text-right ml-auto mr-2">
+                                <span class="text-sm text-gray-500 font-medium">Various Dates</span>
+                                <span class="text-sm text-gray-500 font-medium">Various Roles</span>
+                            </div>
                         </summary>
                         <div class="accordion-content p-4 sm:p-6">
                             <h4 class="text-lg font-semibold text-green-300 mb-2">CASHIER SYSTEM:</h4>
@@ -766,8 +810,13 @@
                     <!-- CODING PROJECTS: BARTERYUK -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
                         <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
-                            CODING PROJECTS: BARTERYUK
-                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Feb 2020 - Dec 2020 | Role: Fullstack Developer</span>
+                            <div class="flex-grow">
+                                CODING PROJECTS: BARTERYUK
+                            </div>
+                            <div class="flex flex-col items-end text-right ml-auto mr-2">
+                                <span class="text-sm text-gray-500 font-medium">Feb 2020 - Dec 2020</span>
+                                <span class="text-sm text-gray-500 font-medium">Role: Fullstack Developer</span>
+                            </div>
                         </summary>
                         <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: An eCommerce system that allows the user (owner) to post their items online and exchange their item with another user's (bidder) item with a bid system. Whenever an owner's item gets a new bid from a new bidder, an automated email will be sent to the owner, so the owner can choose which bidder's item is fit to the owner's liking. An owner can also buy points to bump up (top list) their item as the top advertisement Finished transactions can be rated for subsequent user trust levels. Admin can also ban users with low trust levels.</p>
