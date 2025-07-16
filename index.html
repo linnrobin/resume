@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robin Widjaja - Resume 2025 - Adventure Log</title>
+    <title>Robin Widjaja - Adventure Log</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts - Press Start 2P for a retro game feel, Inter for content -->
@@ -43,7 +43,8 @@
         details summary {
             cursor: pointer;
             list-style: none;
-            padding: 1.5rem 2rem;
+            /* Responsive padding using Tailwind classes */
+            /* padding: 1.5rem 2rem; */
             background-color: #2d3748; /* Darker gray for summary */
             border-radius: 1rem; /* More rounded */
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
@@ -93,7 +94,8 @@
 
         /* Adventure Log Content */
         details .accordion-content {
-            padding: 2rem;
+            /* Responsive padding using Tailwind classes */
+            /* padding: 2rem; */
             background-color: #2d3748; /* Darker gray for content */
             border: 2px solid #48bb78; /* Green border for content */
             border-top: none;
@@ -110,7 +112,8 @@
         .skill-tag {
             background-color: #4a5568; /* Dark gray */
             color: #f6e05e; /* Gold text */
-            padding: 0.75rem 1.5rem; /* Larger padding */
+            /* Responsive padding using Tailwind classes */
+            /* padding: 0.75rem 1.5rem; */
             border-radius: 9999px; /* Full pill shape */
             font-weight: 600;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
@@ -357,7 +360,7 @@
         </header>
 
         <!-- Contact Info (Player Stats/Communication) -->
-        <section class="bg-gray-700 text-gray-300 py-5 px-6 sm:px-8 md:px-10 flex flex-wrap justify-center md:justify-start gap-x-10 gap-y-4 text-base sm:text-lg font-medium shadow-inner border-b-2 border-gray-600">
+        <section class="bg-gray-700 text-gray-300 py-5 px-6 sm:px-8 md:px-10 flex flex-wrap justify-center md:justify-start gap-x-4 sm:gap-x-10 gap-y-4 text-base sm:text-lg font-medium shadow-inner border-b-2 border-gray-600">
             <div class="flex items-center hover:text-green-300 transition-colors duration-200">
                 <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.774a11.037 11.037 0 006.103 6.103l.774-1.548a1 1 0 011.06-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
                 <span>+6285101888201</span> <!-- Updated Phone Number -->
@@ -403,13 +406,13 @@
                     <!-- Main Quests (Work Experience) -->
                     <h3 class="text-2xl font-bold text-yellow-400 border-b-2 border-yellow-500 pb-2 mb-6">MAIN QUESTS (Work Experience)</h3>
 
-                    <!-- IT Manager - Lanesborough -->
+                    <!-- IT Manager - Lanborough -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
-                            IT Manager <span class="font-normal text-gray-400 ml-3">- Lanesborough</span>
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
+                            IT Manager <span class="font-normal text-gray-400 ml-3">- Lanborough</span>
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">06/2023 - Present | Singapore</span>
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <ul class="list-disc list-inside text-gray-300 space-y-2">
                                 <li>Led Scrum meetings with the SEO team for backlinking strategies, domain research, keyword analysis, and competitor insights.</li>
                                 <li>Monitored performance in Bemob and Offer18, analyzing affiliate networks like Clickadu, Adsterra, and PropellerAds.</li>
@@ -422,16 +425,17 @@
                                 <li>Maintained supreme performance for quality assurance.</li>
                                 <li>Fostered a supportive and positive work environment for team members.</li>
                             </ul>
+                            <p class="mt-4 text-sm text-gray-400">WEB3 Testing Project: <a href="https://fancy-waterfall-4238.on.fleek.co/" target="_blank" class="text-blue-400 hover:underline">https://fancy-waterfall-4238.on.fleek.co/</a> (Use Opera / Brave Browsers)</p>
                         </div>
                     </details>
 
                     <!-- Project Manager - INTNT.AI -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
                             Project Manager <span class="font-normal text-gray-400 ml-3">- INTNT.AI</span>
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">12/2022 - 06/2023 | Singapore</span>
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <ul class="list-disc list-inside text-gray-300 space-y-2">
                                 <li>Led project planning, stakeholder communication, and operational execution to ensure successful development and deployment of an LLM-powered chatbot.</li>
                                 <li>Plan and manage sprint timelines, ensuring efficient task execution and alignment with business objectives.</li>
@@ -452,11 +456,11 @@
 
                     <!-- Public Speaking & Training Lead - Atomy Indonesia -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
                             Public Speaking & Training Lead <span class="font-normal text-gray-400 ml-3">- Atomy Indonesia</span>
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">10/2018 - 04/2024 | Medan, Indonesia</span> <!-- Updated Dates -->
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <ul class="list-disc list-inside text-gray-300 space-y-2">
                                 <li>Deliver presentations, conduct training sessions, and mentor team members to enhance communication and technical skills.</li>
                                 <li>Represent the company by delivering presentations and announcements to audiences of over 200 people. <!-- Updated Audience --></li>
@@ -471,11 +475,11 @@
 
                     <!-- Project Manager - nesiagame -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
                             Project Manager <span class="font-normal text-gray-400 ml-3">- nesiagame</span>
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">01/2015 - 01/2020 | Medan, Indonesia</span>
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <ul class="list-disc list-inside text-gray-300 space-y-2">
                                 <li>I drive project execution, stakeholder communication, and team collaboration in a fast-paced, agile startup environment.</li>
                                 <li>Successfully completed 10 projects, including games, applications, frameworks, and systems.</li>
@@ -496,11 +500,11 @@
 
                     <!-- IT Support & Infrastructure (Intern) - sparkstation -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
                             IT Support & Infrastructure (Intern) <span class="font-normal text-gray-400 ml-3">- sparkstation</span>
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">01/2012 - 04/2012 | Singapore</span>
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <ul class="list-disc list-inside text-gray-300 space-y-2">
                                 <li>Delivered technical support, server management, and infrastructure optimization in one of Southeast Asia's leading tech hubs.</li>
                                 <li>Managed client tickets, ensuring swift issue resolution and seamless communication.</li>
@@ -513,11 +517,11 @@
 
                     <!-- Freelance Web and Flash Developer -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
                             Freelance Web and Flash Developer
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">05/2007 - 12/2011 | Taiwan, Medan</span>
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <ul class="list-disc list-inside text-gray-300 space-y-2">
                                 <li>Gained hands-on experience in client communication, project delivery, and full-stack development while working on various one-time projects.</li>
                                 <li>First experience in consulting with clients to understand their requirements and translate them into functional solutions.</li>
@@ -535,11 +539,11 @@
 
                     <!-- PROJECT-1: BKKBoutique -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
                             PROJECT-1: BKKBoutique <span class="font-normal text-gray-400 ml-3">- Ms. Shan</span>
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Jan 2015 - Present | Role: Project Manager</span>
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: A digital transformation for a client who wanted to streamline their manual business flow for better engagement with customers and easier data analytics and compilation. The project has been expanded three times more from conception.</p>
                             <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> Java, Vanilla PHP, MySQL - Android Studio, Whiteboard</p>
                             <p class="text-gray-300 mb-4"><strong>Project Methodology:</strong> Waterfall</p>
@@ -557,11 +561,11 @@
 
                     <!-- PROJECT-2: Botak Game -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
                             PROJECT-2: Botak Game <span class="font-normal text-gray-400 ml-3">- Mr. Sim</span>
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Jan 2015 - Present | Role: Project Manager</span>
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: Transform an obsolete Flash game into modern technology. The game has a lot of requirements for the backend and predetermined game rules, in which we decided to use microservice architecture so that one service won't be disturbing others while another service is being updated.</p>
                             <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> Unity, React, Vue.js, Laravel, Javascript, Rest API, MySQL - Git, Sourcetree, Digital Ocean, Bitbucket, Freedcamp, Trello & JIRA</p>
                             <p class="text-gray-300 mb-4"><strong>Project Methodology:</strong> Kanban, Scrum</p>
@@ -577,11 +581,11 @@
 
                     <!-- PROJECT-3: inGO Ads -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
                             PROJECT-3: inGO Ads <span class="font-normal text-gray-400 ml-3">- Inhouse</span>
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Jun 2015 - Jan 2020 | Role: Product Manager / Project Manager</span>
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: A platform where users can look at cinema schedules, news feeds, job boards, advertisements, local promos, and local events, while Admins can also curate the "posting" through the back office. Later expanded into PPOB with third-party payment gateway API integration, digital currency, discount voucher system, and blast promotions.</p>
                             <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> Java, React, Laravel, Javascript, Redis, Rest API, MySQL - Android Studio, Git, Sourcetree, Bitbucket, Freedcamp, Digital Ocean, AWS, Figma, Trello & JIRA</p>
                             <p class="text-gray-300 mb-4"><strong>Project Methodology:</strong> Kanban, Scrum, Agile</p>
@@ -599,11 +603,11 @@
 
                     <!-- PROJECT-4: RSBT -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
                             PROJECT-4: RSBT <span class="font-normal text-gray-400 ml-3">- Mr. Hendra</span>
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Mar 2018 - Aug 2021 | Role: Project Manager</span>
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: A local hospital wanted to modernize and simplify its patient waiting process. Therefore, they opted to make a self-register system in which users can self-register through their android device before coming to the hospital. After arriving at the hospital, patients can confirm their arrival and get a queue ticket from the QR code that they scanned when registering. The system also has a countdown timer when it's their turn to see the doctor, and after finishing the visit, they can also rate the service. Later it expanded with BPJS queue integration. This project was expanded one time for BPJS integration.</p>
                             <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> Java, React, Laravel, Javascript, Rest API, MySQL - Android Studio, Git, Sourcetree, Bitbucket, & Trello</p>
                             <p class="text-gray-300 mb-4"><strong>Project Methodology:</strong> Kanban, Scrum, Agile</p>
@@ -619,11 +623,11 @@
 
                     <!-- PROJECT-5: Telemarketing System -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
                             PROJECT-5: Telemarketing System <span class="font-normal text-gray-400 ml-3">- Mr. Eric</span>
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Aug 2020 - Aug 2022 | Role: Fullstack Developer / Project Manager</span>
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: The marketing team wanted to branch out to cold calling because of COVID, hence the telemarketing system is created to simplify relevant marketers so they can focus more on profit-making and get a better closing rate and customer retention. Using the likes of WhatsApp API, skype API, and Twilio API.</p>
                             <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> React, React Native, NodeJS, ExpressJS, Javascript, Redis, Rest API, GraphQL, PostgreSQL, MongoDB - Git, AWS, & Trello</p>
                             <p class="text-gray-300 mb-4"><strong>Project Methodology:</strong> Kanban</p>
@@ -648,11 +652,11 @@
 
                     <!-- PROJECT-6: HRD App -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
                             PROJECT-6: HRD App <span class="font-normal text-gray-400 ml-3">- Mr. Eric</span>
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Oct 2020 - Aug 2022 | Role: Product Manager / Project Manager</span>
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: Due to COVID, all human resources were required to WFH with some occasional on-site visits, the app must be mobile-friendly with GPS coordinate integration with multiple locations and buffers, anti-fraud login with multiple credential checks, also future GA and payroll integration.</p>
                             <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> React, React Native, NodeJS, ExpressJS, Javascript, Redis, Rest API, GraphQL, PostgreSQL, MongoDB - Git, Sourcetree, Bitbucket, Freedcamp, Digital Ocean, AWS, Figma, Trello & JIRA</p>
                             <p class="text-gray-300 mb-4"><strong>Project Methodology:</strong> Scrum, Agile</p>
@@ -669,11 +673,11 @@
 
                     <!-- PROJECT-7: Game System Integrator -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
                             PROJECT-7: Game System Integrator <span class="font-normal text-gray-400 ml-3">- Mr. Alim</span>
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Mar 2018 - Present | Role: Project Manager / Product Manager / DevOps</span>
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: System Integration framework that can be integrated with other game providers using APIs, with the ability to handle thousands of concurrent users at the same time, and tens of thousands of requests. The system also must be able to be cloned separately because it will be sold as SaaS for interested individuals.</p>
                             <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> React, Laravel, Javascript, Redis, Rest API, Docker, MySQL, MariaDB - Git, Sourcetree, Bitbucket, AWS, Figma, Trello & JIRA</p>
                             <p class="text-300 mb-4"><strong>Project Methodology:</strong> Kanban, Scrum, Agile</p>
@@ -697,11 +701,11 @@
 
                     <!-- PROJECT-8: SEO Manager -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
                             PROJECT-8: SEO Manager <span class="font-normal text-gray-400 ml-3">- Mr. Ahua</span>
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Feb 2023 - Present | Role: Project Manager / Digital Marketing</span>
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: Create, Oversee and implement the company's search engine optimization strategy. Have in-depth knowledge of SEO techniques, keyword research, and analysis. And also responsible for improving the website's visibility in search engine results pages (SERPs), driving organic traffic, and maximizing ROI.</p>
                             <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> Vanilla HTML, Google Ads, Facebook Ads, Whitehat SEO, Greyhat SEO, Blackhat SEO, Analytics, Voluum, Tracker, Traffic Network</p>
                             <p class="text-gray-300 mb-4"><strong>Project Methodology:</strong> Agile</p>
@@ -719,11 +723,11 @@
 
                     <!-- PROJECT-X: Various Company Profile / Landing Page / Simple Fullstack App -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
                             PROJECT-X: Various Company Profile / Landing Page / Simple Fullstack App <span class="font-normal text-gray-400 ml-3">- Various</span>
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Mar 2015 - Present | Role: Fullstack Developer / Project Manager</span>
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: Some are one-off projects such as company profiles, people's portfolios, simple user management apps, inventory apps, landing pages, mini-games for digital marketing integration, etc.</p>
                             <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> React, React Native, GatsbyJS, Laravel, Javascript, Redis, Rest API, PostgreSQL, MongoDB, Markdown, WordPress - Git, AWS, Figma, & JIRA</p>
                             <p class="text-gray-300 mb-4"><strong>Project Methodology:</strong> Waterfall</p>
@@ -740,11 +744,11 @@
 
                     <!-- SOME OTHER PROJECTS -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
                             SOME OTHER PROJECTS
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Various Dates | Various Roles</span>
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <h4 class="text-lg font-semibold text-green-300 mb-2">CASHIER SYSTEM:</h4>
                             <p class="text-gray-300 mb-4">Fashion retail automation (stock audit, customer database, fast checkout), accessible globally. From Jan 2015 - Present.</p>
 
@@ -761,12 +765,13 @@
 
                     <!-- CODING PROJECTS: BARTERYUK -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
-                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center p-4 sm:p-6">
                             CODING PROJECTS: BARTERYUK
                             <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Feb 2020 - Dec 2020 | Role: Fullstack Developer</span>
                         </summary>
-                        <div class="accordion-content">
+                        <div class="accordion-content p-4 sm:p-6">
                             <p class="text-gray-300 mb-3">Description: An eCommerce system that allows the user (owner) to post their items online and exchange their item with another user's (bidder) item with a bid system. Whenever an owner's item gets a new bid from a new bidder, an automated email will be sent to the owner, so the owner can choose which bidder's item is fit to the owner's liking. An owner can also buy points to bump up (top list) their item as the top advertisement Finished transactions can be rated for subsequent user trust levels. Admin can also ban users with low trust levels.</p>
+                            <p class="text-gray-300 mb-4"><strong>WEB3.0 (Use Opera / Brave Browsers):</strong> <a href="https://fancy-waterfall-4238.on.fleek.co" target="_blank" class="text-blue-400 hover:underline">https://fancy-waterfall-4238.on.fleek.co</a></p>
                             <h4 class="text-lg font-semibold text-green-300 mb-2">Project Responsibilities:</h4>
                             <ul class="list-disc list-inside text-gray-300 space-y-2">
                                 <li>Developed the core eCommerce bid system.</li>
@@ -785,7 +790,7 @@
                     <h2 class="text-3xl sm:text-4xl font-bold text-green-400 border-b-4 border-green-500 pb-4 mb-8 tracking-wide">TRAINING GROUNDS</h2>
                     <div class="p-6 bg-gray-700 rounded-xl shadow-lg border-2 border-gray-600 text-gray-300">
                         <h3 class="text-xl font-semibold text-green-300 mb-1">Bachelor's degree, Computer Science</h3>
-                        <p class="text-base text-gray-200">Fu Jen Catholic University - Taiwan</p>
+                        <p class="text-base text-gray-200">Fu Jen Catholic University</p>
                         <p class="text-sm text-gray-400 mt-1">01/2006 - 01/2010</p>
                     </div>
                 </section>
@@ -843,26 +848,26 @@
                 <section class="p-6 bg-gray-700 rounded-xl shadow-lg border-2 border-gray-600">
                     <h2 class="text-2xl font-bold text-green-400 border-b-2 border-green-500 pb-3 mb-4">ABILITIES UNLOCKED</h2>
                     <div class="flex flex-wrap gap-3 text-base">
-                        <span class="skill-tag">HTML</span>
-                        <span class="skill-tag">Adobe Flash</span>
-                        <span class="skill-tag">Drupal</span>
-                        <span class="skill-tag">Joomla!</span>
-                        <span class="skill-tag">Web Games</span>
-                        <span class="skill-tag">Cascading Style Sheets (CSS)</span>
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">Data Centers</span>
-                        <span class="skill-tag">Cable Management</span>
-                        <span class="skill-tag">Customer Service</span>
-                        <span class="skill-tag">Ticketing Systems</span>
-                        <span class="skill-tag">IT Infrastructure Management</span>
-                        <span class="skill-tag">Windows Server</span>
-                        <span class="skill-tag">Linux Server</span>
-                        <span class="skill-tag">User Acceptance Testing</span>
-                        <span class="skill-tag">Game Development</span>
-                        <span class="skill-tag">PHP Frameworks</span>
-                        <span class="skill-tag">Unity</span>
-                        <span class="skill-tag">MERN Stack</span>
-                        <span class="skill-tag">Human Resources (HR)</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">HTML</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">Adobe Flash</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">Drupal</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">Joomla!</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">Web Games</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">Cascading Style Sheets (CSS)</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">Java</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">Data Centers</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">Cable Management</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">Customer Service</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">Ticketing Systems</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">IT Infrastructure Management</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">Windows Server</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">Linux Server</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">User Acceptance Testing</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">Game Development</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">PHP Frameworks</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">Unity</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">MERN Stack</span>
+                        <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">Human Resources (HR)</span>
                     </div>
                 </section>
 
@@ -876,8 +881,8 @@
                                 <div class="lang-dot filled"></div>
                                 <div class="lang-dot filled"></div>
                                 <div class="lang-dot filled"></div>
-                                <div class="lang-dot"></div>
-                                <div class="lang-dot"></div>
+                                <div class="lang-dot filled"></div>
+                                <div class="lang-dot filled"></div>
                             </div>
                         </div>
                         <div class="flex items-center justify-between">
@@ -896,8 +901,8 @@
                                 <div class="lang-dot filled"></div>
                                 <div class="lang-dot filled"></div>
                                 <div class="lang-dot filled"></div>
-                                <div class="lang-dot"></div>
-                                <div class="lang-dot"></div>
+                                <div class="lang-dot filled"></div>
+                                <div class="lang-dot filled"></div>
                             </div>
                         </div>
                         <div class="flex items-center justify-between">
@@ -917,10 +922,10 @@
                 <section class="p-6 bg-gray-700 rounded-xl shadow-lg border-2 border-gray-600">
                     <h2 class="text-2xl font-bold text-green-400 border-b-2 border-green-500 pb-3 mb-4">GUILD CERTIFICATIONS</h2>
                     <ul class="list-disc list-inside text-gray-300 space-y-3">
-                        <li><span class="font-medium text-green-300">Fullstack Javascript Immersive Program</span> <br><span class="text-sm text-gray-400">Hacktiv8 Indonesia</span></li> <!-- Corrected Source -->
-                        <li><span class="font-medium text-green-300">Project Management Professional (PMP)</span> <br><span class="text-sm text-gray-400">Project Management Institute</span></li>
-                        <li><span class="font-medium text-green-300">Scrum Fundamentals Certified</span> <br><span class="text-sm text-gray-400">SCRUMstudy - Accreditation Body for Scrum and Agile</span></li>
-                        <li><span class="font-medium text-green-300">Red Hat Certified System Administrator</span> <br><span class="text-sm text-gray-400">Red Hat</span></li>
+                        <li class="break-words"><span class="font-medium text-green-300">Fullstack Javascript Immersive Program</span> <br><span class="text-sm text-gray-400">Hacktiva Indonesia</span></li> <!-- Corrected Source -->
+                        <li class="break-words"><span class="font-medium text-green-300">Project Management Professional (PMP)</span> <br><span class="text-sm text-gray-400">Project Management Institute</span></li>
+                        <li class="break-words"><span class="font-medium text-green-300">Scrum Fundamentals Certified</span> <br><span class="text-sm text-gray-400">SCRUMstudy - Accreditation Body for Scrum and Agile</span></li>
+                        <li class="break-words"><span class="font-medium text-green-300">Red Hat Certified System Administrator</span> <br><span class="text-sm text-gray-400">Red Hat</span></li>
                     </ul>
                 </section>
             </div>
