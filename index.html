@@ -1,9 +1,1351 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Hello World</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robin Widjaja - Resume 2025 - Adventure Log</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Press Start 2P for a retro game feel, Inter for content -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Tone.js CDN for sound effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Dark background for game theme */
+            color: #e2e8f0; /* Light text for contrast */
+            line-height: 1.6;
+            background-attachment: fixed; /* Keep fixed for overall body */
+        }
+
+        h1, h2 {
+            font-family: 'Press Start 2P', cursive;
+            color: #48bb78; /* Green for game titles */
+            text-shadow: 2px 2px 0px #2f855a; /* Pixel art shadow */
+        }
+
+        /* Custom styles for language proficiency dots (Health/Mana Bar style) */
+        .lang-dot {
+            width: 16px; /* Larger dots */
+            height: 16px;
+            border-radius: 50%;
+            background-color: #4a5568; /* Dark gray for empty */
+            border: 2px solid #a0aec0; /* Border for definition */
+            transition: background-color 0.3s ease;
+        }
+        .lang-dot.filled {
+            background-color: #f6e05e; /* Gold for filled */
+            border-color: #ecc94b;
+        }
+
+        /* Adventure Log Entry (Accordion) styles */
+        details summary {
+            cursor: pointer;
+            list-style: none;
+            padding: 1.5rem 2rem;
+            background-color: #2d3748; /* Darker gray for summary */
+            border-radius: 1rem; /* More rounded */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4); /* Stronger shadow */
+            margin-bottom: 1rem; /* More space */
+            position: relative;
+            z-index: 10;
+            border: 2px solid #4a5568; /* Subtle border */
+        }
+
+        details summary:hover {
+            background-color: #4a5568; /* Lighter dark gray on hover */
+            transform: translateY(-5px); /* More pronounced lift */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6); /* Stronger shadow on hover */
+        }
+
+        details[open] summary {
+            background-color: #48bb78; /* Green when open */
+            color: #1a202c; /* Dark text when open */
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            transform: translateY(0);
+            border-color: #38a169;
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details summary::after {
+            content: '▶'; /* Play icon */
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin-left: auto;
+            color: #48bb78; /* Green icon color */
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        details[open] summary::after {
+            content: '▼'; /* Down arrow when open */
+            transform: rotate(0deg);
+            color: #1a202c; /* Dark icon when open */
+        }
+
+        /* Adventure Log Content */
+        details .accordion-content {
+            padding: 2rem;
+            background-color: #2d3748; /* Darker gray for content */
+            border: 2px solid #48bb78; /* Green border for content */
+            border-top: none;
+            border-bottom-left-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            margin-top: -1rem; /* Overlap with summary */
+            position: relative;
+            z-index: 5;
+            color: #cbd5e1; /* Lighter text for content */
+        }
+
+        /* Skill Tag (Ability) styles */
+        .skill-tag {
+            background-color: #4a5568; /* Dark gray */
+            color: #f6e05e; /* Gold text */
+            padding: 0.75rem 1.5rem; /* Larger padding */
+            border-radius: 9999px; /* Full pill shape */
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+            border: 1px solid #718096;
+        }
+        .skill-tag:hover {
+            background-color: #616e7f; /* Lighter dark gray on hover */
+            transform: translateY(-3px) scale(1.05); /* Lift and slight scale */
+            color: #fff; /* White text on hover */
+        }
+
+        /* Duck Avatar styles */
+        #duck-avatar {
+            position: fixed; /* Use fixed so it moves relative to viewport */
+            bottom: 20px; /* Position it near the bottom */
+            left: 0;
+            width: 120px; /* Adjusted size for better visibility */
+            height: 120px; /* Adjusted size for better visibility */
+            pointer-events: none; /* Allows clicks to pass through */
+            z-index: 9999; /* Ensure it's on top */
+        }
+
+        #duck-inner {
+            width: 100%;
+            height: 100%;
+            transform-origin: center;
+            transition: transform 0.1s linear; /* Smooth flip transition */
+        }
+
+        #duck-inner.facing-left {
+            transform: scaleX(-1); /* Flip horizontally when facing left */
+        }
+
+        .pixelated-image {
+            image-rendering: pixelated; /* Ensures crisp pixels */
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+
+        /* Walking animation */
+        @keyframes waddle {
+            0% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(2deg); } /* Slight lift and tilt */
+            50% { transform: translateY(0px) rotate(0deg); }
+            75% { transform: translateY(-5px) rotate(-2deg); } /* Slight lift and tilt */
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        #duck-avatar.is-walking {
+            animation: waddle 0.6s infinite linear; /* Apply waddle animation */
+        }
+
+        /* Stab animation */
+        @keyframes stab {
+            0% { transform: translateX(0) translateY(0) scale(1) rotate(0deg); }
+            25% { transform: translateX(15px) translateY(-10px) scale(1.05) rotate(10deg); } /* Lunge forward, slight up, slight rotate */
+            50% { transform: translateX(0px) translateY(0px) scale(1) rotate(0deg); } /* Return to original */
+            75% { transform: translateX(15px) translateY(-10px) scale(1.05) rotate(10deg); }
+            100% { transform: translateX(0) translateY(0) scale(1) rotate(0deg); }
+        }
+
+        #duck-avatar.is-stabbing {
+            animation: stab 0.3s ease-out forwards; /* Apply stab animation once */
+        }
+
+        /* Speech bubble styles */
+        #speech-bubble {
+            position: absolute;
+            top: -30px; /* Position above the duck */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.3s ease-in-out;
+            pointer-events: none; /* Ensure it doesn't block mouse events */
+            border: 2px solid #000;
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        #speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 15px;
+            height: 15px;
+            background-color: #fff;
+            border-right: 2px solid #000;
+            border-bottom: 2px solid #000;
+        }
+
+        #speech-bubble.show {
+            opacity: 1;
+        }
+
+        /* Parallax Background Layers */
+        #parallax-container {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: -10; /* Ensure it's behind the main content */
+        }
+
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            will-change: transform; /* Optimize for animation */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover; /* Default cover, adjusted per layer */
+        }
+
+        /* Print specific styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            #duck-avatar {
+                display: none !important; /* Hide duck avatar when printing */
+            }
+            #parallax-container {
+                display: none !important; /* Hide parallax background when printing */
+            }
+            body {
+                background-color: #fff !important;
+                color: #000 !important;
+                background-image: none !important;
+                cursor: auto !important; /* Restore default cursor for print */
+            }
+            .max-w-6xl {
+                max-width: 100% !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                border: none !important;
+            }
+            header, section {
+                padding: 1rem !important;
+                background-image: none !important;
+                background-color: #e0e0e0 !important; /* Lighter background for print header/contact */
+                color: #000 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+            }
+            h1, h2, h3 {
+                color: #000 !important;
+                text-shadow: none !important;
+            }
+            .bg-blue-600 a {
+                color: #000 !important;
+            }
+            .lang-dot.filled {
+                background-color: #888 !important; /* Gray dots for print */
+                border-color: #555 !important;
+            }
+            .skill-tag {
+                background-color: #eee !important;
+                color: #333 !important;
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
+            }
+            details summary::after, details[open] summary::after {
+                content: '';
+            }
+            details .accordion-content {
+                border: none;
+                background-color: transparent;
+                box-shadow: none;
+                margin-top: 0;
+                padding: 0.5rem 0;
+            }
+            details {
+                display: block !important;
+            }
+            details .accordion-content {
+                border: none;
+                background-color: transparent;
+                box-shadow: none;
+                margin-top: 0;
+                padding: 0.5rem 0;
+            }
+        }
+    </style>
 </head>
-<body>
-    <h1>Hello, World!</h1>
+<body class="p-4 sm:p-6 md:p-8 lg:p-12">
+    <!-- Mute Button -->
+    <button id="mute-button" class="fixed top-4 right-4 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-full shadow-lg z-50 transition-colors duration-200 no-print">
+        Mute Sound
+    </button>
+
+    <!-- Scroll to Contact Button -->
+    <button id="scroll-to-contact-button" class="fixed bottom-4 right-4 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-6 rounded-full shadow-lg z-50 transition-colors duration-200 no-print flex items-center space-x-2">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.76-1.39L2 17l1.39-3.24A8.842 8.842 0 012 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path></svg>
+        <span>Contact Me</span>
+    </button>
+
+    <!-- Parallax Background Container -->
+    <div id="parallax-container">
+        <!-- Furthest back layer: Subtle pattern -->
+        <div id="parallax-layer-4" class="parallax-layer" style="background-image: url('data:image/svg+xml,%3Csvg width=\'80\' height=\'80\' viewBox=\'0 0 80 80\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%232d3748\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM12 14v-4H10v4H6v2h4v4h2v-4h4v-2h-4zm0 0v-4H10v4H6v2h4v4h2v-4h4v-2h-4z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E'); opacity: 0.8; background-size: 80px 80px; background-repeat: repeat;"></div>
+        <!-- Placeholder image for resume page 2 -->
+        <div id="parallax-layer-3" class="parallax-layer" style="background-image: url('https://placehold.co/1920x1080/4a5568/e2e8f0?text=Abstract+Pattern+3'); opacity: 0.02; background-size: 250%; background-repeat: no-repeat; background-position: center;"></div>
+        <!-- Placeholder image for resume page 1 -->
+        <div id="parallax-layer-2" class="parallax-layer" style="background-image: url('https://placehold.co/1920x1080/4a5568/e2e8f0?text=Abstract+Pattern+2'); opacity: 0.04; background-size: 200%; background-repeat: no-repeat; background-position: center;"></div>
+        <!-- General image as a slightly more prominent layer -->
+        <div id="parallax-layer-1" class="parallax-layer" style="background-image: url('https://placehold.co/1920x1080/4a5568/e2e8f0?text=Abstract+Pattern+1'); opacity: 0.15; background-size: cover; background-repeat: no-repeat; background-position: center;"></div>
+    </div>
+
+    <!-- Duck Avatar Element -->
+    <div id="duck-avatar">
+        <div id="duck-inner">
+            <img src="https://linnrobin.github.io/resume/stabby-duck.png" alt="Pixel Duck with Knife" class="w-full h-full object-contain pixelated-image">
+        </div>
+        <div id="speech-bubble"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto bg-gray-800 shadow-2xl rounded-xl overflow-hidden border-4 border-gray-700 relative z-10">
+        <!-- Player Profile (Header Section) -->
+        <header class="bg-gradient-to-br from-gray-900 to-gray-700 text-white p-8 sm:p-10 md:p-12 flex flex-col md:flex-row items-center justify-between rounded-t-xl relative overflow-hidden">
+            <!-- Background pattern/overlay -->
+            <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM12 14v-4H10v4H6v2h4v4h2v-4h4v-2h-4zm0 0v-4H10v4H6v2h4v4h2v-4h4v-2h-4z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+
+            <div class="text-center md:text-left mb-6 md:mb-0 relative z-10">
+                <h1 class="text-5xl sm:text-6xl font-extrabold mb-3 tracking-tight leading-tight text-green-400">ROBIN WIDJAJA</h1>
+                <p class="text-lg sm:text-xl font-light leading-relaxed opacity-95 max-w-2xl text-gray-300">
+                    PMP-certified IT Project Manager with 10+ years in SDLC, managing 10+ apps. Skilled in Fullstack Dev (MERN), CI/CD, AWS DevOps, SEO & Digital Marketing. AI enthusiast passionate about strategy & problem-solving.
+                </p>
+            </div>
+            <div class="flex-shrink-0 relative z-10">
+                <img src="http://linnrobin.github.io/resume/Pasfoto%20BG%20WHITE%20ROBIN.jpg" alt="Profile Picture" class="rounded-full w-36 h-36 sm:w-44 sm:h-44 object-cover border-6 border-green-400 shadow-xl transform transition-transform duration-300 hover:scale-105">
+                <div class="absolute inset-0 rounded-full ring-8 ring-green-500 ring-opacity-40 animate-pulse"></div>
+            </div>
+        </header>
+
+        <!-- Contact Info (Player Stats/Communication) -->
+        <section class="bg-gray-700 text-gray-300 py-5 px-6 sm:px-8 md:px-10 flex flex-wrap justify-center md:justify-start gap-x-10 gap-y-4 text-base sm:text-lg font-medium shadow-inner border-b-2 border-gray-600">
+            <div class="flex items-center hover:text-green-300 transition-colors duration-200">
+                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.774a11.037 11.037 0 006.103 6.103l.774-1.548a1 1 0 011.06-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                <span>+6285101888201</span> <!-- Updated Phone Number -->
+            </div>
+            <div class="flex items-center hover:text-green-300 transition-colors duration-200">
+                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                <span>robinsalim@yahoo.com</span>
+            </div>
+            <div class="flex items-center hover:text-green-300 transition-colors duration-200">
+                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.879V13.37H6.879V10h1.559V7.527c0-1.536.938-2.388 2.388-2.388 1.154 0 2.28.205 2.28.205v2.5H12.38c-.752 0-.982.467-.982.948V10h2.773l-.443 3.37H11.4c0 6.572 6.118 7.525 8.542 6.516C19.82 19.128 20 14.991 20 10c0-5.523-4.477-10-10-10z" clip-rule="evenodd"></path></path></svg>
+                <a href="https://www.linkedin.com/in/robin-salim/" target="_blank" class="text-gray-300 hover:underline">linkedin.com/in/robin-salim/</a>
+            </div>
+            <div class="flex items-center hover:text-green-300 transition-colors duration-200">
+                <!-- GitHub Logo SVG -->
+                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.679-.217.679-.481 0-.237-.008-.865-.013-1.703-2.782.602-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.618.069-.606.069-.606 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.087 2.91.829.091-.645.351-1.087.635-1.337-2.22-.253-4.555-1.113-4.555-4.93 0-1.091.39-1.984 1.029-2.682-.103-.253-.446-1.272.098-2.65 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.379.202 2.398.099 2.651.64.698 1.028 1.591 1.028 2.682 0 3.827-2.338 4.673-4.566 4.92.359.307.678.915.678 1.846 0 1.337-.012 2.419-.012 2.747 0 .268.18.579.684.481C21.137 20.2 24 16.443 24 12.017 24 6.484 19.522 2 14 2h-2z" clip-rule="evenodd"></path></svg>
+                <a href="https://github.com/linnrobin" target="_blank" class="text-gray-300 hover:underline">github.com/linnrobin</a> <!-- GitHub Link with Logo -->
+            </div>
+            <div class="flex items-center hover:text-green-300 transition-colors duration-200">
+                <!-- Globe / WWW Icon SVG -->
+                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 6.276a1 1 0 011.399-.144l4.27 2.135a1 1 0 00.866 0l4.27-2.135a1 1 0 011.399.144 1 1 0 01-.144 1.399l-2.135 4.27a1 1 0 000 .866l2.135 4.27a1 1 0 01-.144 1.399 1 1 0 01-1.399-.144L10 12.866l-4.27 2.135a1 1 0 01-1.399-.144 1 1 0 01-.144-1.399l2.135-4.27a1 1 0 000-.866L4.188 6.42a1 1 0 01.144-1.399z" clip-rule="evenodd"></path></svg>
+                <a href="https://linnrobin.github.io/resume" target="_blank" class="text-gray-300 hover:underline">linnrobin.github.io/resume</a> <!-- New Website Link -->
+            </div>
+            <div class="flex items-center hover:text-green-300 transition-colors duration-200">
+                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                <span>Greater Medan</span>
+            </div>
+        </section>
+
+        <!-- Print Button (Game Menu / Export) -->
+        <div class="text-right p-6 no-print flex flex-wrap justify-end gap-4">
+            <button onclick="window.open('https://linnrobin.github.io/resume/Robin-Widjaja-resume-2025.pdf', '_blank')" class="bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-400 focus:ring-opacity-75 text-lg">
+                PRINT RESUME
+            </button>
+        </div>
+
+        <div class="p-8 sm:p-10 md:p-12 grid grid-cols-1 lg:grid-cols-3 gap-10">
+            <!-- Main Content - Left Column (Adventure Log / Experience & Education) -->
+            <div class="lg:col-span-2 space-y-10">
+                <!-- Adventure Log Section -->
+                <section>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-green-400 border-b-4 border-green-500 pb-4 mb-8 tracking-wide">ADVENTURE LOG</h2>
+
+                    <!-- Main Quests (Work Experience) -->
+                    <h3 class="text-2xl font-bold text-yellow-400 border-b-2 border-yellow-500 pb-2 mb-6">MAIN QUESTS (Work Experience)</h3>
+
+                    <!-- IT Manager - Lanesborough -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            IT Manager <span class="font-normal text-gray-400 ml-3">- Lanesborough</span>
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">06/2023 - Present | Singapore</span>
+                        </summary>
+                        <div class="accordion-content">
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>Led Scrum meetings with the SEO team for backlinking strategies, domain research, keyword analysis, and competitor insights.</li>
+                                <li>Monitored performance in Bemob and Offer18, analyzing affiliate networks like Clickadu, Adsterra, and PropellerAds.</li>
+                                <li>Generated daily reports for the SEO and affiliate network teams.</li>
+                                <li>Facilitated sprint meetings with the development team and managed Jira tickets.</li>
+                                <li>Managed and coordinated new product feature requirements/tasks.</li>
+                                <li>Monitored AWS, Cloudflare, and Mongo Atlas for spikes, errors, and logs.</li>
+                                <li>Met with stakeholders to gather product requirements, define them clearly, and align development efforts.</li>
+                                <li>Ensured daily operational readiness and mitigated potential risks.</li>
+                                <li>Maintained supreme performance for quality assurance.</li>
+                                <li>Fostered a supportive and positive work environment for team members.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- Project Manager - INTNT.AI -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            Project Manager <span class="font-normal text-gray-400 ml-3">- INTNT.AI</span>
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">12/2022 - 06/2023 | Singapore</span>
+                        </summary>
+                        <div class="accordion-content">
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>Led project planning, stakeholder communication, and operational execution to ensure successful development and deployment of an LLM-powered chatbot.</li>
+                                <li>Plan and manage sprint timelines, ensuring efficient task execution and alignment with business objectives.</li>
+                                <li>Define project scope, deliverables, and milestones while proactively identifying and mitigating risks.</li>
+                                <li>Track progress using Agile methodologies, facilitating daily stand-ups and sprint reviews.</li>
+                                <li>Serve as the primary liaison for clients, working with businesses ranging from startups to multinational corporations.</li>
+                                <li>Guide and facilitate business requirements into clear technical objectives for the development team.</li>
+                                <li>Coordinate with cross-functional teams, ensuring smooth collaboration between developers, data scientists, and product owners.</li>
+                                <li>Oversee the creation, review, and management of all project-related documentation, ensuring clarity and consistency.</li>
+                                <li>Implement best practices for process optimization, tool adoption, and workflow automation.</li>
+                                <li>Monitor KPIs and generate reports to track performance, progress, and project impact.</li>
+                                <li>Support the team in navigating complex business processes and administrative challenges by engaging relevant stakeholders.</li>
+                                <li>Ensure timely resolution of blockers and facilitate effective problem-solving during development cycles.</li>
+                                <li>Foster a collaborative and productive work environment, keeping the team motivated and aligned with project goals.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- Public Speaking & Training Lead - Atomy Indonesia -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            Public Speaking & Training Lead <span class="font-normal text-gray-400 ml-3">- Atomy Indonesia</span>
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">10/2018 - 04/2024 | Medan, Indonesia</span> <!-- Updated Dates -->
+                        </summary>
+                        <div class="accordion-content">
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>Deliver presentations, conduct training sessions, and mentor team members to enhance communication and technical skills.</li>
+                                <li>Represent the company by delivering presentations and announcements to audiences of over 200 people. <!-- Updated Audience --></li>
+                                <li>Communicate key company updates, materials, and initiatives in an engaging and informative way.</li>
+                                <li>Train leaders and team members in public speaking, conducting small-group sessions for audiences of under 50 people. <!-- Updated Audience --></li>
+                                <li>Provide effective coaching to improve confidence, clarity, and presentation skills.</li>
+                                <li>Guide team members in effectively using the company's online platform to maximize operational and marketing efficiency.</li>
+                                <li>Ensure smooth adoption of digital tools by providing clear instructions and troubleshooting support.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- Project Manager - nesiagame -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            Project Manager <span class="font-normal text-gray-400 ml-3">- nesiagame</span>
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">01/2015 - 01/2020 | Medan, Indonesia</span>
+                        </summary>
+                        <div class="accordion-content">
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>I drive project execution, stakeholder communication, and team collaboration in a fast-paced, agile startup environment.</li>
+                                <li>Successfully completed 10 projects, including games, applications, frameworks, and systems.</li>
+                                <li>Ensure projects are delivered on time and within budget by fostering seamless collaboration across teams.</li>
+                                <li>Conduct risk analysis and management in stakeholder decision meetings to mitigate potential issues.</li>
+                                <li>Build a strong, engaged team by encouraging full involvement and accountability in every project.</li>
+                                <li>Scout and headhunt prospective talents to strengthen the company's technical and creative workforce.</li>
+                                <li>Maintain a lean and green office environment to promote productivity and sustainability.</li>
+                                <li>Manage a-level communications, ensuring transparency and strategic alignment.</li>
+                                <li>Conduct business analysis to align projects with client needs and market demands.</li>
+                                <li>Meet with clients for UDT/UAT, provide follow-ups, and oversee client retention strategies.</li>
+                                <li>Evaluate budget, timeline, and quality requirements to ensure project feasibility and success.</li>
+                                <li>Prepare annual progress and financial reports to track business performance.</li>
+                                <li>Integrate JIRA, Trello, Freedcamp, and Google Apps for efficient reporting, bug tracking, and collaboration.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- IT Support & Infrastructure (Intern) - sparkstation -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            IT Support & Infrastructure (Intern) <span class="font-normal text-gray-400 ml-3">- sparkstation</span>
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">01/2012 - 04/2012 | Singapore</span>
+                        </summary>
+                        <div class="accordion-content">
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>Delivered technical support, server management, and infrastructure optimization in one of Southeast Asia's leading tech hubs.</li>
+                                <li>Managed client tickets, ensuring swift issue resolution and seamless communication.</li>
+                                <li>Deployed and configured Linux and Windows servers to meet business and security requirements.</li>
+                                <li>Customized KVM virtualization solutions based on client specifications.</li>
+                                <li>Designed and maintained structured cabling systems to enhance operational efficiency and reliability.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- Freelance Web and Flash Developer -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            Freelance Web and Flash Developer
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">05/2007 - 12/2011 | Taiwan, Medan</span>
+                        </summary>
+                        <div class="accordion-content">
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>Gained hands-on experience in client communication, project delivery, and full-stack development while working on various one-time projects.</li>
+                                <li>First experience in consulting with clients to understand their requirements and translate them into functional solutions.</li>
+                                <li>Successfully earned first revenue from client projects, building foundational business and negotiation skills.</li>
+                                <li>Developed and delivered custom CSS templates, Wordpress, Drupal, and Joomla websites and blogs.</li>
+                                <li>Created interactive Flash-based company profiles and games.</li>
+                                <li>Built HTML-based company profiles and Java applications, including games and business tools.</li>
+                                <li>Proficiently worked with PHP and MySQL, with some projects utilizing .NET and Microsoft SQL for enterprise solutions.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- Side Quests (Projects) -->
+                    <h3 class="text-2xl font-bold text-yellow-400 border-b-2 border-yellow-500 pb-2 mb-6 mt-10">SIDE QUESTS (Projects)</h3>
+
+                    <!-- PROJECT-1: BKKBoutique -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            PROJECT-1: BKKBoutique <span class="font-normal text-gray-400 ml-3">- Ms. Shan</span>
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Jan 2015 - Present | Role: Project Manager</span>
+                        </summary>
+                        <div class="accordion-content">
+                            <p class="text-gray-300 mb-3">Description: A digital transformation for a client who wanted to streamline their manual business flow for better engagement with customers and easier data analytics and compilation. The project has been expanded three times more from conception.</p>
+                            <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> Java, Vanilla PHP, MySQL - Android Studio, Whiteboard</p>
+                            <p class="text-gray-300 mb-4"><strong>Project Methodology:</strong> Waterfall</p>
+                            <h4 class="text-lg font-semibold text-green-300 mb-2">Project Responsibilities:</h4>
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>Meet and Analyze client requirements to project documents, so they can be developed further as a project charter to initiate the project.</li>
+                                <li>Communicate roles and responsibilities to stakeholders.</li>
+                                <li>Create and maintain work schedules, also make sure needed meetings are being held.</li>
+                                <li>Manage expectations and buy-in from key stakeholders.</li>
+                                <li>QA Test.</li>
+                                <li>Document final closure and lessons learned for future reference.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- PROJECT-2: Botak Game -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            PROJECT-2: Botak Game <span class="font-normal text-gray-400 ml-3">- Mr. Sim</span>
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Jan 2015 - Present | Role: Project Manager</span>
+                        </summary>
+                        <div class="accordion-content">
+                            <p class="text-gray-300 mb-3">Description: Transform an obsolete Flash game into modern technology. The game has a lot of requirements for the backend and predetermined game rules, in which we decided to use microservice architecture so that one service won't be disturbing others while another service is being updated.</p>
+                            <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> Unity, React, Vue.js, Laravel, Javascript, Rest API, MySQL - Git, Sourcetree, Digital Ocean, Bitbucket, Freedcamp, Trello & JIRA</p>
+                            <p class="text-gray-300 mb-4"><strong>Project Methodology:</strong> Kanban, Scrum</p>
+                            <h4 class="text-lg font-semibold text-green-300 mb-2">Project Responsibilities:</h4>
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>Provide a clear scope definition and work schedule.</li>
+                                <li>Develop WBS for the technical team.</li>
+                                <li>Prepare needed technical resources for the team in different phases of the project lifecycle.</li>
+                                <li>Test and demo to stakeholders.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- PROJECT-3: inGO Ads -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            PROJECT-3: inGO Ads <span class="font-normal text-gray-400 ml-3">- Inhouse</span>
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Jun 2015 - Jan 2020 | Role: Product Manager / Project Manager</span>
+                        </summary>
+                        <div class="accordion-content">
+                            <p class="text-gray-300 mb-3">Description: A platform where users can look at cinema schedules, news feeds, job boards, advertisements, local promos, and local events, while Admins can also curate the "posting" through the back office. Later expanded into PPOB with third-party payment gateway API integration, digital currency, discount voucher system, and blast promotions.</p>
+                            <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> Java, React, Laravel, Javascript, Redis, Rest API, MySQL - Android Studio, Git, Sourcetree, Bitbucket, Freedcamp, Digital Ocean, AWS, Figma, Trello & JIRA</p>
+                            <p class="text-gray-300 mb-4"><strong>Project Methodology:</strong> Kanban, Scrum, Agile</p>
+                            <h4 class="text-lg font-semibold text-green-300 mb-2">Project Responsibilities:</h4>
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>Concept product vision, outline, and milestones.</li>
+                                <li>Create business risk breakdown analysis and ROI.</li>
+                                <li>Discover and define and project roadblocks, gold-plating, scope creep, and all other risks early-on for ensuring the sprint goal is achieved on time, on budget, and on the scope.</li>
+                                <li>Escalate issues as needed.</li>
+                                <li>Prepare, analyze, process, and implement change management.</li>
+                                <li>Adopt project governance standards.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- PROJECT-4: RSBT -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            PROJECT-4: RSBT <span class="font-normal text-gray-400 ml-3">- Mr. Hendra</span>
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Mar 2018 - Aug 2021 | Role: Project Manager</span>
+                        </summary>
+                        <div class="accordion-content">
+                            <p class="text-gray-300 mb-3">Description: A local hospital wanted to modernize and simplify its patient waiting process. Therefore, they opted to make a self-register system in which users can self-register through their android device before coming to the hospital. After arriving at the hospital, patients can confirm their arrival and get a queue ticket from the QR code that they scanned when registering. The system also has a countdown timer when it's their turn to see the doctor, and after finishing the visit, they can also rate the service. Later it expanded with BPJS queue integration. This project was expanded one time for BPJS integration.</p>
+                            <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> Java, React, Laravel, Javascript, Rest API, MySQL - Android Studio, Git, Sourcetree, Bitbucket, & Trello</p>
+                            <p class="text-gray-300 mb-4"><strong>Project Methodology:</strong> Kanban, Scrum, Agile</p>
+                            <h4 class="text-lg font-semibold text-green-300 mb-2">Project Responsibilities:</h4>
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>Create needed documents and contracts.</li>
+                                <li>Oversee project communication between stakeholders.</li>
+                                <li>Manage expectations to ensure all buy-ins are relevant.</li>
+                                <li>Document API usage to be used as deliverables to relevant stakeholders.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- PROJECT-5: Telemarketing System -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            PROJECT-5: Telemarketing System <span class="font-normal text-gray-400 ml-3">- Mr. Eric</span>
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Aug 2020 - Aug 2022 | Role: Fullstack Developer / Project Manager</span>
+                        </summary>
+                        <div class="accordion-content">
+                            <p class="text-gray-300 mb-3">Description: The marketing team wanted to branch out to cold calling because of COVID, hence the telemarketing system is created to simplify relevant marketers so they can focus more on profit-making and get a better closing rate and customer retention. Using the likes of WhatsApp API, skype API, and Twilio API.</p>
+                            <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> React, React Native, NodeJS, ExpressJS, Javascript, Redis, Rest API, GraphQL, PostgreSQL, MongoDB - Git, AWS, & Trello</p>
+                            <p class="text-gray-300 mb-4"><strong>Project Methodology:</strong> Kanban</p>
+                            <h4 class="text-lg font-semibold text-green-300 mb-2">Project Responsibilities:</h4>
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>Plan everything from execution to delivery.</li>
+                                <li>Direct the team to achieve a common goal.</li>
+                                <li>Delegates work effectively.</li>
+                                <li>Manage the resources of time.</li>
+                                <li>Manage the deployment deliverables.</li>
+                                <li>Monitor progress and track roadblocks, and ensure precautions are prepared.</li>
+                                <li>Conduct regular meetings with relevant stakeholders.</li>
+                                <li>Establish a shared vision.</li>
+                                <li>Manage documentation and reports.</li>
+                                <li>Create a self-governing team and keep them close-knit because it's in the middle of COVID.</li>
+                                <li>Maintain communication and coordination with relevant key stakeholders.</li>
+                                <li>Train the telemarketer's team on how to better use the finished product.</li>
+                                <li>Serve as a technical consultant for the client's marketing division.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- PROJECT-6: HRD App -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            PROJECT-6: HRD App <span class="font-normal text-gray-400 ml-3">- Mr. Eric</span>
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Oct 2020 - Aug 2022 | Role: Product Manager / Project Manager</span>
+                        </summary>
+                        <div class="accordion-content">
+                            <p class="text-gray-300 mb-3">Description: Due to COVID, all human resources were required to WFH with some occasional on-site visits, the app must be mobile-friendly with GPS coordinate integration with multiple locations and buffers, anti-fraud login with multiple credential checks, also future GA and payroll integration.</p>
+                            <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> React, React Native, NodeJS, ExpressJS, Javascript, Redis, Rest API, GraphQL, PostgreSQL, MongoDB - Git, Sourcetree, Bitbucket, Freedcamp, Digital Ocean, AWS, Figma, Trello & JIRA</p>
+                            <p class="text-gray-300 mb-4"><strong>Project Methodology:</strong> Scrum, Agile</p>
+                            <h4 class="text-lg font-semibold text-green-300 mb-2">Project Responsibilities:</h4>
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>Make a WBS for stakeholders.</li>
+                                <li>Maintain work schedule and collaboration for on-site and remote teams.</li>
+                                <li>Make sure status and result meetings are carried out so that it delivers the desired result.</li>
+                                <li>Communicate and make changes appropriately relevant to client needs.</li>
+                                <li>Serve as a technical consultant for the client's HR division.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- PROJECT-7: Game System Integrator -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            PROJECT-7: Game System Integrator <span class="font-normal text-gray-400 ml-3">- Mr. Alim</span>
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Mar 2018 - Present | Role: Project Manager / Product Manager / DevOps</span>
+                        </summary>
+                        <div class="accordion-content">
+                            <p class="text-gray-300 mb-3">Description: System Integration framework that can be integrated with other game providers using APIs, with the ability to handle thousands of concurrent users at the same time, and tens of thousands of requests. The system also must be able to be cloned separately because it will be sold as SaaS for interested individuals.</p>
+                            <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> React, Laravel, Javascript, Redis, Rest API, Docker, MySQL, MariaDB - Git, Sourcetree, Bitbucket, AWS, Figma, Trello & JIRA</p>
+                            <p class="text-300 mb-4"><strong>Project Methodology:</strong> Kanban, Scrum, Agile</p>
+                            <h4 class="text-lg font-semibold text-green-300 mb-2">Project Responsibilities:</h4>
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>Analyze and break down business cases.</li>
+                                <li>Maintain work schedule and collaboration for on-site and remote teams.</li>
+                                <li>Develop Operational structures and responsibilities.</li>
+                                <li>Own and groom the backlog as needed.</li>
+                                <li>Make sure status and result meetings are carried out so that it delivers the desired result.</li>
+                                <li>Encourage team on moral expectations to maintain buy-ins.</li>
+                                <li>Monitor CPU/Memory/Storage, and Network utilization in AWS.</li>
+                                <li>Modify RDS, Elasticache, EC2 according to the needed capacity.</li>
+                                <li>Serve as 24H Point of contact and ensure timely resolution of high-priority tickets.</li>
+                                <li>Serve as a technical consultant for clients' digital marketing and HR division.</li>
+                                <li>Test all the tickets after going into production.</li>
+                                <li>Make sure all the relevant finished/retrospective/lessons-learned / risk documents are properly stored and can be retrieved as needed.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- PROJECT-8: SEO Manager -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            PROJECT-8: SEO Manager <span class="font-normal text-gray-400 ml-3">- Mr. Ahua</span>
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Feb 2023 - Present | Role: Project Manager / Digital Marketing</span>
+                        </summary>
+                        <div class="accordion-content">
+                            <p class="text-gray-300 mb-3">Description: Create, Oversee and implement the company's search engine optimization strategy. Have in-depth knowledge of SEO techniques, keyword research, and analysis. And also responsible for improving the website's visibility in search engine results pages (SERPs), driving organic traffic, and maximizing ROI.</p>
+                            <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> Vanilla HTML, Google Ads, Facebook Ads, Whitehat SEO, Greyhat SEO, Blackhat SEO, Analytics, Voluum, Tracker, Traffic Network</p>
+                            <p class="text-gray-300 mb-4"><strong>Project Methodology:</strong> Agile</p>
+                            <h4 class="text-lg font-semibold text-green-300 mb-2">Project Responsibilities:</h4>
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>Develop and Execute SEO Strategies.</li>
+                                <li>On-Page and Off-Page Optimization.</li>
+                                <li>Technical SEO.</li>
+                                <li>Content Strategy.</li>
+                                <li>Reporting and Analysis.</li>
+                                <li>Competitor Analysis.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- PROJECT-X: Various Company Profile / Landing Page / Simple Fullstack App -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            PROJECT-X: Various Company Profile / Landing Page / Simple Fullstack App <span class="font-normal text-gray-400 ml-3">- Various</span>
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Mar 2015 - Present | Role: Fullstack Developer / Project Manager</span>
+                        </summary>
+                        <div class="accordion-content">
+                            <p class="text-gray-300 mb-3">Description: Some are one-off projects such as company profiles, people's portfolios, simple user management apps, inventory apps, landing pages, mini-games for digital marketing integration, etc.</p>
+                            <p class="text-gray-300 mb-2"><strong>Tools & Technology:</strong> React, React Native, GatsbyJS, Laravel, Javascript, Redis, Rest API, PostgreSQL, MongoDB, Markdown, WordPress - Git, AWS, Figma, & JIRA</p>
+                            <p class="text-gray-300 mb-4"><strong>Project Methodology:</strong> Waterfall</p>
+                            <h4 class="text-lg font-semibold text-green-300 mb-2">Project Responsibilities:</h4>
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>Maintain work schedule and collaboration for on-site and remote teams.</li>
+                                <li>Own and groom the backlog as needed.</li>
+                                <li>Test and deploy finished deliverables and make sure it's up to coding standards and best practices.</li>
+                                <li>Make sure needed resources are available and allocate them accordingly.</li>
+                                <li>Make sure all the relevant finished/retrospective/lessons-learned / risk documents are properly stored and can be retrieved as needed.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- SOME OTHER PROJECTS -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            SOME OTHER PROJECTS
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Various Dates | Various Roles</span>
+                        </summary>
+                        <div class="accordion-content">
+                            <h4 class="text-lg font-semibold text-green-300 mb-2">CASHIER SYSTEM:</h4>
+                            <p class="text-gray-300 mb-4">Fashion retail automation (stock audit, customer database, fast checkout), accessible globally. From Jan 2015 - Present.</p>
+
+                            <h4 class="text-lg font-semibold text-green-300 mb-2">SUPPLY CHAIN SYSTEM:</h4>
+                            <p class="text-gray-300 mb-4">Computer distribution company, end-to-end system for smooth flow, employee KPI tracing. Online system (back admin) and frontline (Android). From Jan 2015 - Present.</p>
+
+                            <h4 class="text-lg font-semibold text-green-300 mb-2">PHOTOGRAPHER MARKETPLACE SYSTEM:</h4>
+                            <p class="text-gray-300 mb-4">Rebuild marketplace for professional photography services globally. Features: photo editing, automated promotions (birthday, coded, seasonal giveaways), new destinations, photo sharing, rating system, accounting report, freelance registration. From Jan 2015 - Present.</p>
+
+                            <h4 class="text-lg font-semibold text-green-300 mb-2">TRADING SYSTEM:</h4>
+                            <p class="text-300 mb-4">O2O gold trading service (deposit cash, buy gold online, save/resell, physical gold pickup from jewelers). From Jan 2015 - Present.</p>
+                        </div>
+                    </details>
+
+                    <!-- CODING PROJECTS: BARTERYUK -->
+                    <details class="rounded-xl shadow-lg overflow-hidden mb-6">
+                        <summary class="text-xl font-semibold text-gray-200 flex items-center">
+                            CODING PROJECTS: BARTERYUK
+                            <span class="text-sm text-gray-500 ml-auto mr-2 font-medium">Feb 2020 - Dec 2020 | Role: Fullstack Developer</span>
+                        </summary>
+                        <div class="accordion-content">
+                            <p class="text-gray-300 mb-3">Description: An eCommerce system that allows the user (owner) to post their items online and exchange their item with another user's (bidder) item with a bid system. Whenever an owner's item gets a new bid from a new bidder, an automated email will be sent to the owner, so the owner can choose which bidder's item is fit to the owner's liking. An owner can also buy points to bump up (top list) their item as the top advertisement Finished transactions can be rated for subsequent user trust levels. Admin can also ban users with low trust levels.</p>
+                            <h4 class="text-lg font-semibold text-green-300 mb-2">Project Responsibilities:</h4>
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>Developed the core eCommerce bid system.</li>
+                                <li>Implemented automated email notifications for new bids.</li>
+                                <li>Integrated a point system for item advertisement boosting.</li>
+                                <li>Developed user rating and trust level functionalities.</li>
+                                <li>Implemented admin features for user management (e.g., banning).</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                </section>
+
+                <!-- Training Grounds (Education Section) -->
+                <section>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-green-400 border-b-4 border-green-500 pb-4 mb-8 tracking-wide">TRAINING GROUNDS</h2>
+                    <div class="p-6 bg-gray-700 rounded-xl shadow-lg border-2 border-gray-600 text-gray-300">
+                        <h3 class="text-xl font-semibold text-green-300 mb-1">Bachelor's degree, Computer Science</h3>
+                        <p class="text-base text-gray-200">Fu Jen Catholic University - Taiwan</p>
+                        <p class="text-sm text-gray-400 mt-1">01/2006 - 01/2010</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar Content - Right Column (Game Stats / Summary, Skills, Achievements, Languages, Certifications) -->
+            <div class="lg:col-span-1 space-y-10">
+                <!-- Quest Log (Summary Section) -->
+                <section class="p-6 bg-gray-700 rounded-xl shadow-lg border-2 border-gray-600">
+                    <h2 class="text-2xl font-bold text-green-400 border-b-2 border-green-500 pb-3 mb-4">QUEST LOG</h2>
+                    <h3 class="text-lg font-semibold text-green-300 mb-3">Artifacts Discovered:</h3>
+                    <ul class="list-disc list-inside text-gray-300 space-y-2">
+                        <li>Project Management Work : <a href="https://sudo.ingo.io" target="_blank" class="text-blue-400 hover:underline hover:text-blue-300 transition-colors duration-200">https://sudo.ingo.io</a></li>
+                        <li>WEB2.0 Projects (MERNQ) : <a href="https://github.com/linnrobin" target="_blank" class="text-blue-400 hover:underline hover:text-blue-300 transition-colors duration-200">https://github.com/linnrobin</a></li>
+                        <li>WEB3 Training Project (Use Opera / Brave) : <a href="https://fancy-waterfall-4238.on.fleek.co/" target="_blank" class="text-blue-400 hover:underline hover:text-blue-300 transition-colors duration-200">https://fancy-waterfall-4238.on.fleek.co/</a></li> <!-- Corrected Link -->
+                    </ul>
+                </section>
+
+                <!-- Legendary Feats (Key Achievements Section) -->
+                <section class="p-6 bg-gray-700 rounded-xl shadow-lg border-2 border-gray-600">
+                    <h2 class="text-2xl font-bold text-green-400 border-b-2 border-green-500 pb-3 mb-4">LEGENDARY FEATS</h2>
+                    <div class="space-y-5 text-gray-300">
+                        <div class="flex items-start">
+                            <svg class="w-7 h-7 text-yellow-400 mr-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 6a3 3 0 013-3h10a2 2 0 012 2v8a2 2 0 01-2 2H6.5L1 18V6a3 3 0 013-3zm7.586 1.586a2 2 0 102.828 2.828L15 10.828V12h-1.172l-4.242-4.242z" clip-rule="evenodd"></path></svg>
+                            <div>
+                                <h3 class="text-lg font-semibold text-green-300 mb-1">Improved Team Efficiency</h3>
+                                <p class="text-gray-300 text-sm">Reduced sprint cycle by 20% through workflow automation tool integration.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-7 h-7 text-yellow-400 mr-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6z" clip-rule="evenodd"></path></svg>
+                            <div>
+                                <h3 class="text-lg font-semibold text-green-300 mb-1">Cost Management Excellence</h3>
+                                <p class="text-gray-300 text-sm">Managed project budget savings of 15% through effective resource allocation.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-7 h-7 text-yellow-400 mr-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <div>
+                                <h3 class="text-lg font-semibold text-green-300 mb-1">Project Delivery Success</h3>
+                                <p class="text-gray-300 text-sm">Delivered 10 successful projects on time and within scope.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-7 h-7 text-yellow-400 mr-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0113 3.414L16.586 7A2 2 0 0118 8.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1-3a1 1 0 000 2h2a1 1 0 100-2H7z" clip-rule="evenodd"></path></svg>
+                            <div>
+                                <h3 class="text-lg font-semibold text-green-300 mb-1">Enhanced Team Skills</h3>
+                                <p class="text-gray-300 text-sm">Trained over 200 individuals in public speaking and leadership.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Abilities Unlocked (Skills Section) -->
+                <section class="p-6 bg-gray-700 rounded-xl shadow-lg border-2 border-gray-600">
+                    <h2 class="text-2xl font-bold text-green-400 border-b-2 border-green-500 pb-3 mb-4">ABILITIES UNLOCKED</h2>
+                    <div class="flex flex-wrap gap-3 text-base">
+                        <span class="skill-tag">HTML</span>
+                        <span class="skill-tag">Adobe Flash</span>
+                        <span class="skill-tag">Drupal</span>
+                        <span class="skill-tag">Joomla!</span>
+                        <span class="skill-tag">Web Games</span>
+                        <span class="skill-tag">Cascading Style Sheets (CSS)</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Data Centers</span>
+                        <span class="skill-tag">Cable Management</span>
+                        <span class="skill-tag">Customer Service</span>
+                        <span class="skill-tag">Ticketing Systems</span>
+                        <span class="skill-tag">IT Infrastructure Management</span>
+                        <span class="skill-tag">Windows Server</span>
+                        <span class="skill-tag">Linux Server</span>
+                        <span class="skill-tag">User Acceptance Testing</span>
+                        <span class="skill-tag">Game Development</span>
+                        <span class="skill-tag">PHP Frameworks</span>
+                        <span class="skill-tag">Unity</span>
+                        <span class="skill-tag">MERN Stack</span>
+                        <span class="skill-tag">Human Resources (HR)</span>
+                    </div>
+                </section>
+
+                <!-- Language Proficiency (Language Section) -->
+                <section class="p-6 bg-gray-700 rounded-xl shadow-lg border-2 border-gray-600">
+                    <h2 class="text-2xl font-bold text-green-400 border-b-2 border-green-500 pb-3 mb-4">LANGUAGE PROFICIENCY</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-medium text-gray-200 text-lg">Chinese</span>
+                            <div class="flex gap-1.5">
+                                <div class="lang-dot filled"></div>
+                                <div class="lang-dot filled"></div>
+                                <div class="lang-dot filled"></div>
+                                <div class="lang-dot"></div>
+                                <div class="lang-dot"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-medium text-gray-200 text-lg">English</span>
+                            <div class="flex gap-1.5">
+                                <div class="lang-dot filled"></div>
+                                <div class="lang-dot filled"></div>
+                                <div class="lang-dot filled"></div>
+                                <div class="lang-dot filled"></div>
+                                <div class="lang-dot"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-medium text-gray-200 text-lg">Hokian</span>
+                            <div class="flex gap-1.5">
+                                <div class="lang-dot filled"></div>
+                                <div class="lang-dot filled"></div>
+                                <div class="lang-dot filled"></div>
+                                <div class="lang-dot"></div>
+                                <div class="lang-dot"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-medium text-gray-200 text-lg">Indonesian</span>
+                            <div class="flex gap-1.5">
+                                <div class="lang-dot filled"></div>
+                                <div class="lang-dot filled"></div>
+                                <div class="lang-dot filled"></div>
+                                <div class="lang-dot filled"></div>
+                                <div class="lang-dot filled"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Guild Certifications (Certification Section) -->
+                <section class="p-6 bg-gray-700 rounded-xl shadow-lg border-2 border-gray-600">
+                    <h2 class="text-2xl font-bold text-green-400 border-b-2 border-green-500 pb-3 mb-4">GUILD CERTIFICATIONS</h2>
+                    <ul class="list-disc list-inside text-gray-300 space-y-3">
+                        <li><span class="font-medium text-green-300">Fullstack Javascript Immersive Program</span> <br><span class="text-sm text-gray-400">Hacktiv8 Indonesia</span></li> <!-- Corrected Source -->
+                        <li><span class="font-medium text-green-300">Project Management Professional (PMP)</span> <br><span class="text-sm text-gray-400">Project Management Institute</span></li>
+                        <li><span class="font-medium text-green-300">Scrum Fundamentals Certified</span> <br><span class="text-sm text-gray-400">SCRUMstudy - Accreditation Body for Scrum and Agile</span></li>
+                        <li><span class="font-medium text-green-300">Red Hat Certified System Administrator</span> <br><span class="text-sm text-gray-400">Red Hat</span></li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+
+        <!-- Contact Me Section -->
+        <section id="contact-me-section" class="p-8 sm:p-10 md:p-12 bg-gray-900 rounded-b-xl border-t-4 border-green-500 text-center relative overflow-hidden">
+            <!-- Subtle background pattern for the contact section -->
+            <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%2348bb78\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM12 14v-4H10v4H6v2h4v4h2v-4h4v-2h-4zm0 0v-4H10v4H6v2h4v4h2v-4h4v-2h-4z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+            <h2 class="text-3xl sm:text-4xl font-bold text-green-400 pb-4 mb-8 tracking-wide flex items-center justify-center relative z-10">
+                <svg class="w-8 h-8 mr-3 text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.76-1.39L2 17l1.39-3.24A8.842 8.842 0 012 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"></path></svg>
+                CONTACT ME
+                <svg class="w-8 h-8 ml-3 text-yellow-300 transform scale-x-[-1]" fill="currentColor" viewBox="0 0 20 20"><path d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.76-1.39L2 17l1.39-3.24A8.842 8.842 0 012 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"></path></svg>
+            </h2>
+            <p class="text-lg sm:text-xl font-light leading-relaxed opacity-95 max-w-2xl mx-auto text-gray-300 mb-8 relative z-10">
+                Quack! Wanna get to know my human? You can even find them in Medan for a cozy cup of afternoon tea! (Sadly, this duck's just pixels, so I can't join the tea party!)
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 relative z-10">
+                <a href="https://wa.me/6285101888201" target="_blank" class="inline-block bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75 text-lg">
+                    WHATSAPP ME
+                </a>
+                <a href="mailto:robinsalim@yahoo.com" class="inline-block bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-75 text-lg">
+                    EMAIL ME
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // DOM Elements
+        const duckAvatar = document.getElementById('duck-avatar');
+        const duckInner = document.getElementById('duck-inner');
+        const speechBubble = document.getElementById('speech-bubble');
+        const muteButton = document.getElementById('mute-button');
+        const scrollToContactButton = document.getElementById('scroll-to-contact-button');
+        const contactMeSection = document.getElementById('contact-me-section');
+
+        // Duck Animation Variables
+        let duckX = 0;
+        let duckY = 0; // Represents the base Y position (ground level)
+        let mouseX = 0;
+        let mouseY = 0;
+
+        const duckSize = 120;
+        const duckSpeed = 5;
+        const stabThreshold = 100; // Distance to trigger stab animation
+        const jumpTriggerYThreshold = 250; // Y-coordinate threshold to trigger jump
+        const horizontalJumpThreshold = 20; // Horizontal proximity to cursor for jump
+        const arrivalThreshold = 30; // Distance to trigger "I got you!" speech bubble
+
+        // Speech Bubble Messages
+        const walkingSpeechBubbles = [
+            "Come here!",
+            "I'm coming to get you!",
+            "Stop there!"
+        ];
+        const collisionSpeechBubbles = [
+            "Best PM? No quacks!",
+            "Duck says: Hire my human!",
+            "Resume, to the top!"
+        ];
+
+        let lastSpeechBubbleTime = 0;
+        const minSpeechBubbleInterval = 3000; // Min 3 seconds between walking speech bubbles
+        const maxSpeechBubbleInterval = 7000; // Max 7 seconds between walking speech bubbles
+        let nextSpeechBubbleInterval = Math.random() * (maxSpeechBubbleInterval - minSpeechBubbleInterval) + minSpeechBubbleInterval;
+        let currentSpeechBubbleType = null; // Tracks active speech bubble type
+
+        // Duck State Flags
+        let isStabbing = false;
+        let isWalking = false;
+        let isJumping = false;
+        let isResting = false;
+        let consecutiveJumps = 0;
+        let maxJumpsBeforeRest = Math.floor(Math.random() * (5 - 3 + 1)) + 3; // Random 3-5 jumps
+
+        // Sound Related Variables
+        let isMuted = false;
+        let soundEffects = {};
+        let walkingSoundInterval = null;
+
+        // Set initial Y position (fixed at bottom, 20px from the edge)
+        const groundY = window.innerHeight - duckSize - 20;
+        duckY = groundY; // duckY now represents the ground level
+        duckAvatar.style.top = `${duckY}px`; // Apply initial position
+
+        // Parallax Elements and Speeds
+        const parallaxLayers = document.querySelectorAll('.parallax-layer');
+        const parallaxVerticalSpeeds = [0.01, 0.03, 0.06, 0.1]; // Furthest back to closest
+        const parallaxHorizontalSpeeds = [0.005, 0.01, 0.02, 0.04]; // Furthest back to closest
+
+        /**
+         * Initializes Tone.js audio context and loads sound effects.
+         * This function is called on the first user interaction to comply with browser autoplay policies.
+         */
+        async function initializeAudio() {
+            try {
+                await Tone.start();
+                // Create simple synths for sound effects
+                soundEffects.waddle = new Tone.MembraneSynth({
+                    pitchDecay: 0.05, octaves: 8, envelope: { attack: 0.001, decay: 0.2, sustain: 0.01, release: 0.1, attackCurve: "exponential" }
+                }).toDestination();
+                soundEffects.jump = new Tone.Synth({
+                    oscillator: { type: "triangle" }, envelope: { attack: 0.01, decay: 0.2, sustain: 0.0, release: 0.1 }
+                }).toDestination();
+                soundEffects.land = new Tone.NoiseSynth({
+                    noise: { type: "pink" }, envelope: { attack: 0.005, decay: 0.15, sustain: 0.0, release: 0.05 }
+                }).toDestination();
+                soundEffects.stab = new Tone.FMSynth({
+                    harmonicity: 1.5, modulationIndex: 5, envelope: { attack: 0.001, decay: 0.1, sustain: 0.0, release: 0.05 },
+                    modulation: { type: "sine" }, modulationEnvelope: { attack: 0.001, decay: 0.1, sustain: 0.0, release: 0.05 }
+                }).toDestination();
+                soundEffects.bubblePop = new Tone.PluckSynth({
+                    attackNoise: 0.5, dampening: 4000, resonance: 0.9
+                }).toDestination();
+
+                // Set volumes
+                soundEffects.waddle.volume.value = -15;
+                soundEffects.jump.volume.value = -8;
+                soundEffects.land.volume.value = -12;
+                soundEffects.stab.volume.value = -5;
+                soundEffects.bubblePop.volume.value = -8;
+
+            } catch (error) {
+                console.error("Error initializing audio:", error);
+            }
+        }
+
+        /**
+         * Plays a specified sound effect.
+         * @param {string} effect - The name of the sound effect to play (e.g., 'waddle', 'jump').
+         */
+        function playSound(effect) {
+            if (isMuted) return;
+            if (!soundEffects[effect]) {
+                console.warn(`Sound effect '${effect}' not initialized yet.`);
+                return;
+            }
+
+            switch (effect) {
+                case 'waddle':
+                    soundEffects.waddle.triggerAttackRelease("C4", "8n");
+                    break;
+                case 'jump':
+                    soundEffects.jump.triggerAttackRelease("G5", "16n");
+                    break;
+                case 'land':
+                    soundEffects.land.triggerAttackRelease();
+                    break;
+                case 'stab':
+                    soundEffects.stab.triggerAttackRelease("C6", "16n");
+                    break;
+                case 'bubblePop':
+                    soundEffects.bubblePop.triggerAttackRelease("C7", "32n");
+                    break;
+            }
+        }
+
+        /**
+         * Displays a speech bubble with the given text.
+         * @param {string} text - The text to display in the speech bubble.
+         * @param {string} type - The type of speech bubble (e.g., 'walking', 'collision', 'arrival', 'rest').
+         */
+        function showSpeechBubble(text, type = 'general') {
+            // Prevent new walking bubbles if an arrival/rest bubble is active
+            if (type === 'walking' && (currentSpeechBubbleType === 'arrival' || currentSpeechBubbleType === 'rest')) {
+                return;
+            }
+            speechBubble.textContent = text;
+            speechBubble.classList.add('show');
+            currentSpeechBubbleType = type;
+            playSound('bubblePop');
+        }
+
+        /**
+         * Hides the currently displayed speech bubble.
+         */
+        function hideSpeechBubble() {
+            speechBubble.classList.remove('show');
+            speechBubble.textContent = '';
+            currentSpeechBubbleType = null;
+        }
+
+        /**
+         * Initiates the duck's stabbing animation and sound.
+         */
+        function startStab() {
+            if (isStabbing || isJumping || isResting) return;
+
+            isStabbing = true;
+            isWalking = false;
+            duckAvatar.classList.remove('is-walking');
+            duckAvatar.classList.add('is-stabbing');
+            playSound('stab');
+
+            setTimeout(() => {
+                duckAvatar.classList.remove('is-stabbing');
+                isStabbing = false;
+            }, 300); // Matches CSS animation duration
+        }
+
+        /**
+         * Initiates the duck's jumping animation and sound.
+         */
+        function startJump() {
+            if (isJumping || isStabbing || isResting) return;
+
+            consecutiveJumps++;
+            isJumping = true;
+            isWalking = false;
+            duckAvatar.classList.remove('is-walking', 'is-stabbing');
+            playSound('jump');
+
+            const targetX = mouseX - duckSize / 2;
+            const targetY = mouseY;
+            const deltaX = targetX - duckX;
+            const deltaY = duckY - targetY;
+
+            if (deltaX < 0) {
+                duckInner.classList.add('facing-left');
+            } else {
+                duckInner.classList.remove('facing-left');
+            }
+
+            duckAvatar.style.transition = 'transform 0.7s ease-out';
+            duckAvatar.style.transform = `translateX(${deltaX}px) translateY(-${Math.max(0, deltaY)}px)`;
+
+            setTimeout(() => {
+                duckAvatar.style.transition = 'transform 0.5s ease-in';
+                duckAvatar.style.transform = `translateX(${deltaX}px) translateY(0px)`; // Fall back to ground
+
+                setTimeout(() => {
+                    isJumping = false;
+                    duckAvatar.style.transition = ''; // Clear transition
+                    playSound('land');
+
+                    duckX = targetX; // Update duck's position to landing spot
+                    duckAvatar.style.left = `${duckX}px`;
+                    duckAvatar.style.transform = 'translateY(0px) translateX(0px)'; // Reset transform
+
+                    const currentDuckCenterX = duckX + duckSize / 2;
+                    const currentDuckCenterY = duckY + duckSize / 2;
+                    const distanceToCursorAfterLanding = Math.sqrt(
+                        Math.pow(mouseX - currentDuckCenterX, 2) +
+                        Math.pow(mouseY - currentDuckCenterY, 2)
+                    );
+
+                    if (distanceToCursorAfterLanding <= arrivalThreshold) {
+                        showSpeechBubble('I got you!', 'arrival');
+                        setTimeout(hideSpeechBubble, 1500);
+                    }
+
+                    if (consecutiveJumps >= maxJumpsBeforeRest) {
+                        startRest();
+                    }
+                }, 500);
+            }, 700);
+        }
+
+        /**
+         * Puts the duck into a resting state for a random duration.
+         */
+        function startRest() {
+            isResting = true;
+            isWalking = false;
+            isJumping = false;
+            isStabbing = false;
+            duckAvatar.classList.remove('is-walking', 'is-stabbing', 'is-jumping');
+            clearInterval(walkingSoundInterval); // Stop walking sound
+            walkingSoundInterval = null;
+
+            showSpeechBubble('Phew!', 'rest');
+
+            const restDuration = Math.floor(Math.random() * (3000 - 1000 + 1)) + 1000; // 1 to 3 seconds
+
+            setTimeout(() => {
+                hideSpeechBubble();
+                isResting = false;
+                consecutiveJumps = 0;
+                maxJumpsBeforeRest = Math.floor(Math.random() * (5 - 3 + 1)) + 3; // Reset for next cycle
+
+                // If cursor is still far, resume walking
+                const duckCenterX = duckX + duckSize / 2;
+                const dx = mouseX - duckCenterX;
+                if (Math.abs(dx) > duckSpeed) {
+                    isWalking = true;
+                }
+            }, restDuration);
+        }
+
+        /**
+         * Main animation loop for the duck's movement and interactions.
+         */
+        function updateDuck() {
+            const duckCenterX = duckX + duckSize / 2;
+            const dx = mouseX - duckCenterX;
+            const distance = Math.sqrt(dx * dx + (mouseY - (duckY + duckSize / 2)) * (mouseY - (duckY + duckSize / 2)));
+
+            let wasWalking = isWalking;
+            isWalking = false;
+            duckAvatar.classList.remove('is-walking');
+
+            if (isResting || isJumping || isStabbing) {
+                // Duck is busy, no new actions
+            } else {
+                if (distance < stabThreshold) {
+                    startStab();
+                    if (currentSpeechBubbleType === null) { // Only show if no other special bubble is active
+                        const randomIndex = Math.floor(Math.random() * collisionSpeechBubbles.length);
+                        showSpeechBubble(collisionSpeechBubbles[randomIndex], 'collision');
+                        setTimeout(hideSpeechBubble, 1000);
+                    }
+                } else if (mouseY < jumpTriggerYThreshold) {
+                    const horizontalDistanceToCursor = Math.abs(dx);
+                    if (horizontalDistanceToCursor <= horizontalJumpThreshold) {
+                        startJump();
+                    } else {
+                        duckX += Math.sign(dx) * duckSpeed;
+                        isWalking = true;
+                        duckAvatar.classList.add('is-walking');
+                        if (dx < 0) {
+                            duckInner.classList.add('facing-left');
+                        } else {
+                            duckInner.classList.remove('facing-left');
+                        }
+                    }
+                } else {
+                    if (Math.abs(dx) > duckSpeed) {
+                        duckX += Math.sign(dx) * duckSpeed;
+                        isWalking = true;
+                        duckAvatar.classList.add('is-walking');
+                        if (dx < 0) {
+                            duckInner.classList.add('facing-left');
+                        } else {
+                            duckInner.classList.remove('facing-left');
+                        }
+                    }
+                }
+            }
+
+            // Manage walking sound effect interval
+            if (isWalking && !wasWalking) {
+                if (!walkingSoundInterval) {
+                    walkingSoundInterval = setInterval(() => playSound('waddle'), 600);
+                }
+            } else if (!isWalking && wasWalking) {
+                clearInterval(walkingSoundInterval);
+                walkingSoundInterval = null;
+            }
+
+            // Handle random walking speech bubbles
+            if (isWalking && currentSpeechBubbleType === null) {
+                const currentTime = Date.now();
+                if (currentTime - lastSpeechBubbleTime > nextSpeechBubbleInterval) {
+                    const randomIndex = Math.floor(Math.random() * walkingSpeechBubbles.length);
+                    showSpeechBubble(walkingSpeechBubbles[randomIndex], 'walking');
+                    lastSpeechBubbleTime = currentTime;
+                    nextSpeechBubbleInterval = Math.random() * (maxSpeechBubbleInterval - minSpeechBubbleInterval) + minSpeechBubbleInterval;
+                    setTimeout(hideSpeechBubble, 1500);
+                }
+            } else if (!isWalking && currentSpeechBubbleType === 'walking') {
+                hideSpeechBubble();
+            }
+
+            // Apply calculated horizontal position
+            duckX = Math.min(Math.max(0, duckX), window.innerWidth - duckSize);
+            duckAvatar.style.left = `${duckX}px`;
+
+            // Parallax effect based on scroll and duck's horizontal position
+            const scrolled = window.pageYOffset;
+            const viewportCenterX = window.innerWidth / 2;
+            const duckDeviationFromCenter = duckX + (duckSize / 2) - viewportCenterX;
+
+            parallaxLayers.forEach((layer, index) => {
+                const translateY = scrolled * parallaxVerticalSpeeds[index];
+                const translateX = -duckDeviationFromCenter * parallaxHorizontalSpeeds[index];
+                layer.style.transform = `translateY(${translateY}px) translateX(${translateX}px)`;
+            });
+
+            requestAnimationFrame(updateDuck);
+        }
+
+        // Event Listeners
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        window.addEventListener('resize', () => {
+            const newGroundY = window.innerHeight - duckSize - 20;
+            duckY = newGroundY;
+            duckAvatar.style.top = `${duckY}px`;
+
+            duckX = Math.min(Math.max(0, duckX), window.innerWidth - duckSize);
+            duckAvatar.style.left = `${duckX}px`;
+
+            // Reset duck states on resize to prevent animation glitches
+            isJumping = false;
+            isStabbing = false;
+            isResting = false;
+            consecutiveJumps = 0;
+            duckAvatar.style.transform = `translateY(0px) translateX(0px)`;
+            duckAvatar.style.transition = '';
+            duckAvatar.classList.remove('is-walking', 'is-stabbing', 'is-jumping');
+            hideSpeechBubble();
+            clearInterval(walkingSoundInterval);
+            walkingSoundInterval = null;
+        });
+
+        muteButton.addEventListener('click', () => {
+            isMuted = !isMuted;
+            Tone.Destination.mute = isMuted;
+            muteButton.textContent = isMuted ? 'Unmute Sound' : 'Mute Sound';
+        });
+
+        scrollToContactButton.addEventListener('click', () => {
+            contactMeSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Initialize audio context on first user interaction
+        document.addEventListener('click', initializeAudio, { once: true });
+        document.addEventListener('touchstart', initializeAudio, { once: true });
+
+        // Start the main animation loop
+        requestAnimationFrame(updateDuck);
+    </script>
 </body>
 </html>
