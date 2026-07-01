@@ -144,17 +144,15 @@
             z-index: 9999; /* Ensure it's on top */
         }
 
-        /* Hide the roaming duck + speech bubble on small screens so the résumé
-           reads clean and professional for recruiters reviewing on mobile. */
-        @media (max-width: 768px) {
-            #duck-avatar { display: none !important; }
-        }
+        /* Perf: promote the duck to its own GPU layer so movement + flip stay
+           buttery without forcing repaints. Cheap; keeps the page fast. */
+        #duck-avatar, #duck-inner { will-change: transform; }
 
         #duck-inner {
             width: 100%;
             height: 100%;
             transform-origin: center;
-            transition: transform 0.1s linear; /* Smooth flip transition */
+            transition: transform 0.18s ease-out; /* Smooth flip transition */
         }
 
         #duck-inner.facing-left {
@@ -177,7 +175,7 @@
         }
 
         #duck-avatar.is-walking {
-            animation: waddle 0.6s infinite linear; /* Apply waddle animation */
+            animation: waddle 0.6s infinite ease-in-out; /* Apply waddle animation */
         }
 
         /* Stab animation */
@@ -1179,8 +1177,18 @@
         let mouseX = 0;
         let mouseY = 0;
 
-        const duckSize = 120;
-        const duckSpeed = 5;
+        // Duck is smaller on phones/tablets so it stays present without dominating.
+        let duckSize = window.innerWidth <= 768 ? 76 : 120;
+        const duckSpeed = 5;      // threshold used for walk detection
+        const duckEase = 0.16;    // proportional easing → natural accel/decel
+        const maxDuckStep = 12;   // px/frame cap so far cursors don't teleport it
+
+        function applyDuckSize() {
+            duckSize = window.innerWidth <= 768 ? 76 : 120;
+            duckAvatar.style.width = `${duckSize}px`;
+            duckAvatar.style.height = `${duckSize}px`;
+        }
+        applyDuckSize();
         const stabThreshold = 100; // Distance to trigger stab animation
         const jumpTriggerYThreshold = 250; // Y-coordinate threshold to trigger jump
         const horizontalJumpThreshold = 20; // Horizontal proximity to cursor for jump
@@ -1453,7 +1461,7 @@
                     if (horizontalDistanceToCursor <= horizontalJumpThreshold) {
                         startJump();
                     } else {
-                        duckX += Math.sign(dx) * duckSpeed;
+                        duckX += Math.sign(dx) * Math.min(Math.abs(dx) * duckEase, maxDuckStep);
                         isWalking = true;
                         duckAvatar.classList.add('is-walking');
                         if (dx < 0) {
@@ -1464,7 +1472,7 @@
                     }
                 } else {
                     if (Math.abs(dx) > duckSpeed) {
-                        duckX += Math.sign(dx) * duckSpeed;
+                        duckX += Math.sign(dx) * Math.min(Math.abs(dx) * duckEase, maxDuckStep);
                         isWalking = true;
                         duckAvatar.classList.add('is-walking');
                         if (dx < 0) {
@@ -1524,7 +1532,16 @@
             mouseY = e.clientY;
         });
 
+        // Follow finger on touch devices too (passive → never blocks scrolling).
+        document.addEventListener('touchmove', (e) => {
+            if (e.touches && e.touches.length) {
+                mouseX = e.touches[0].clientX;
+                mouseY = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
         window.addEventListener('resize', () => {
+            applyDuckSize();
             const newGroundY = window.innerHeight - duckSize - 20;
             duckY = newGroundY;
             duckAvatar.style.top = `${duckY}px`;
