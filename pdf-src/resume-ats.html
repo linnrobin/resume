@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robin Widjaja - Resume</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0.5in;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 9.5pt;
+            line-height: 1.25;
+            color: #000;
+            background: white;
+            padding: 0.5in;
+        }
+
+        h1 {
+            font-size: 17pt;
+            font-weight: bold;
+            margin-bottom: 1pt;
+            margin-top: 0;
+        }
+
+        .subtitle {
+            font-size: 10.5pt;
+            font-weight: bold;
+            margin-bottom: 2pt;
+        }
+
+        .summary {
+            font-size: 9pt;
+            margin-bottom: 4pt;
+            line-height: 1.25;
+        }
+
+        .contact {
+            font-size: 8.5pt;
+            margin-bottom: 8pt;
+            line-height: 1.25;
+        }
+
+        section {
+            margin-bottom: 6pt;
+        }
+
+        h2 {
+            font-size: 10pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid #000;
+            padding-bottom: 2pt;
+            margin-bottom: 4pt;
+            margin-top: 6pt;
+        }
+
+        .job {
+            margin-bottom: 4pt;
+        }
+
+        .job-title {
+            font-weight: bold;
+            margin-bottom: 1pt;
+            font-size: 9.5pt;
+        }
+
+        .job-desc {
+            font-size: 9pt;
+            margin-bottom: 2pt;
+            line-height: 1.25;
+        }
+
+        .venture {
+            margin-bottom: 3pt;
+        }
+
+        .venture-title {
+            font-weight: bold;
+            display: inline;
+            font-size: 9.5pt;
+        }
+
+        .venture-desc {
+            display: inline;
+            font-size: 9pt;
+            line-height: 1.25;
+        }
+
+        .achievement {
+            font-size: 9pt;
+            margin-bottom: 2pt;
+            margin-left: 10pt;
+            line-height: 1.25;
+        }
+
+        .skills-section {
+            font-size: 9pt;
+            line-height: 1.3;
+        }
+
+        .skill-category {
+            margin-bottom: 3pt;
+        }
+
+        .skill-label {
+            font-weight: bold;
+            display: inline;
+        }
+
+        .cert {
+            font-size: 9pt;
+            margin-bottom: 2pt;
+        }
+
+        .education {
+            font-size: 9pt;
+            margin-bottom: 2pt;
+        }
+
+        .languages {
+            font-size: 9pt;
+        }
+    </style>
+</head>
+<body>
+    <h1>ROBIN WIDJAJA</h1>
+    <div class="subtitle">AI Solutions Architect & Technical Delivery Lead</div>
+    <div class="summary">
+        PMP-certified · 10+ years SDLC · Designs and ships production software by architecting and directing agentic AI
+    </div>
+    <div class="contact">
+        Medan, Indonesia · robinsalim@yahoo.com · +62 851-0188-8201 · linkedin.com/in/robin-salim · github.com/linnrobin
+    </div>
+
+    <section>
+        <h2>PROFILE</h2>
+        <p style="font-size: 9pt; line-height: 1.25; margin-bottom: 3pt;">
+            I own software products end to end — architecture, technical decisions, quality, and delivery — using AI agents as leverage to accelerate implementation while I stay on system design and correctness. PMP-certified with 10+ years leading software delivery across healthcare, fintech, gaming, and ad-tech, including roles at Singapore-based companies.
+        </p>
+        <p style="font-size: 9pt; line-height: 1.25;">
+            Recently I've designed and shipped a portfolio of production-grade systems — an AI software-delivery platform, a clinic medical-records system, and a pharmacy ERP — with an emphasis on safe, auditable, scalable design. I decide what to build, choose the architecture, and make sure it ships correctly.
+        </p>
+    </section>
+
+    <section>
+        <h2>FLAGSHIP — INDEPENDENT AI SYSTEMS (DESIGNED & DIRECTED)</h2>
+        <div class="venture">
+            <span class="venture-title">AI software-delivery platform.</span>
+            <span class="venture-desc">Designed a self-modifying multi-agent system that writes and revises its own code under a four-layer safety controller (kill-switch, approval gate, protected-file boundaries, health checks) with a full audit trail for traceability. Owned the architecture, safety model, and evaluation. Actively deployed; Python / FastAPI.</span>
+        </div>
+        <div class="venture">
+            <span class="venture-title">Private AI model studio & evaluation.</span>
+            <span class="venture-desc">Built a private, on-demand LLM inference stack (open models on rented GPUs) and designed a deterministic evaluation framework — objective scorers, no LLM-judge — to benchmark fine-tuned domain models against leading commercial baselines on quality and cost. Owned the architecture and evaluation methodology.</span>
+        </div>
+        <div class="venture">
+            <span class="venture-title">Shared GPU control plane.</span>
+            <span class="venture-desc">Designed the job-routing and GPU-lifecycle infrastructure (queue, leasing, auto-recovery) that powers the systems above — built for reliability and cost efficiency.</span>
+        </div>
+    </section>
+
+    <section>
+        <h2>PROFESSIONAL EXPERIENCE</h2>
+        <div class="job">
+            <div class="job-title">IT & SEO Manager — Lanesborough Investments, Singapore (Remote) · Jun 2023 – Present</div>
+            <div class="job-desc">As IT & SEO Manager, own both architectural design and operations across development and SEO teams (Agile/Jira); design and run AWS, Cloudflare, and MongoDB Atlas infrastructure — monitoring, scalability, and stakeholder reporting.</div>
+        </div>
+        <div class="job">
+            <div class="job-title">Project Manager — INTNT.AI, Singapore (Remote) · Dec 2022 – Jun 2023</div>
+            <div class="job-desc">Led delivery of an LLM-powered chatbot, coordinating engineers, data scientists, and product owners across Singapore-based teams; owned scope, timeline, and risk.</div>
+        </div>
+        <div class="job">
+            <div class="job-title">Independent Software Developer (Freelance) — Medan · 2020 – 2022</div>
+            <div class="job-desc">Delivered client systems end to end, including a telemarketing platform (WhatsApp / Twilio / Skype API integrations) and a mobile HR app with GPS attendance and anti-fraud login — from requirements through deployment.</div>
+        </div>
+        <div class="job">
+            <div class="job-title">Project Manager — Nesiagame, Medan · Jan 2015 – Jan 2020</div>
+            <div class="job-desc">Delivered 10 game/application projects on time and within budget; built and led cross-functional teams. Earlier: IT Support & Infrastructure intern, Sparkstation, Singapore (2012); Freelance Web Developer, Indonesia/Taiwan (2007–2011).</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>VENTURES — PRODUCTS IN DEVELOPMENT (PRE-REVENUE)</h2>
+        <div class="venture">
+            <span class="venture-title">Clinic medical-records system (EMR).</span>
+            <span class="venture-desc">A multi-tenant clinical platform covering patient registration, queue, consultation notes, ICD-10 diagnosis, prescriptions, pediatric growth charts, and billing, integrated with a paired pharmacy system. In pilot with a partner GP clinic (client: Dr. Will). Next.js / PostgreSQL.</span>
+        </div>
+        <div class="venture">
+            <span class="venture-title">Pharmacy ERP.</span>
+            <span class="venture-desc">Stock, dispensing, point-of-sale, and purchasing built on a first-expiry-first-out (FEFO) inventory engine, designed to scale across multiple outlets.</span>
+        </div>
+        <div class="venture">
+            <span class="venture-title">Real-time multi-game platform.</span>
+            <span class="venture-desc">A browser-based platform (lobby, wallet, accounts, live play) architected for expansion via partner APIs. Equity stake; technical lead.</span>
+        </div>
+        <div class="venture">
+            <span class="venture-title">QR-ordering SaaS for restaurants (FBQR).</span>
+            <span class="venture-desc">Architected a multi-tenant SaaS platform — QR menu & ordering, kitchen display, payment integration (Midtrans/QRIS), real-time order updates, and food-delivery-platform integrations (GrabFood / GoFood / ShopeeFood). In development.</span>
+        </div>
+        <div class="venture">
+            <span class="venture-title">Additional systems:</span>
+            <span class="venture-desc">a stock-market signal bot with a multi-agent validation panel; an AI image/video generation pipeline with per-character LoRA fine-tuning on FLUX for consistent, disclosed AI brand ambassadors; a DNS / subdomain-takeover security scanner (defensive infrastructure auditing across rotating CIDR ranges).</span>
+        </div>
+    </section>
+
+    <section>
+        <h2>KEY ACHIEVEMENTS</h2>
+        <div class="achievement">• Independently architected and delivered production systems across AI infrastructure, healthcare, and real-time platforms — designing each system and directing AI to build it.</div>
+        <div class="achievement">• Built safety and auditability controls for self-modifying AI (guardrails, approval gates, audit trails) from real failure-and-recovery experience.</div>
+        <div class="achievement">• Delivered ~20% faster project cycles and ~15% cost savings through workflow optimization and disciplined scope/risk control.</div>
+        <div class="achievement">• Led complex integrations (payment gateways, WhatsApp, Twilio, BPJS, game providers) and distributed teams through COVID-era remote delivery.</div>
+    </section>
+
+    <section>
+        <h2>SKILLS</h2>
+        <div class="skills-section">
+            <div class="skill-category">
+                <span class="skill-label">Core (hands-on, current):</span>
+                System & solution architecture · Multi-tenant SaaS architecture · Agentic AI orchestration & multi-agent design · Technical evaluation & QA of AI output · Data modeling · REST API & system integration · Cloud operations (AWS) · Security & auditability · Agile/Scrum/Kanban delivery (PMP) · HTML
+            </div>
+            <div class="skill-category">
+                <span class="skill-label">Delivered with AI orchestration (architected & directed):</span>
+                Python · TypeScript / Next.js / React · Node.js · PostgreSQL · Docker · AI model fine-tuning & evaluation · GPU inference
+            </div>
+            <div class="skill-category">
+                <span class="skill-label">Foundational (historical, 2007–2020):</span>
+                PHP/MySQL · JavaScript · MERN · Linux administration
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>CERTIFICATIONS</h2>
+        <div class="cert">Project Management Professional (PMP) — Project Management Institute (2019, valid through 2028, Credly-verified)</div>
+        <div class="cert">RHCSA — Red Hat Certified System Administrator (2016)</div>
+        <div class="cert">Scrum Fundamentals Certified — SCRUMstudy (2018)</div>
+        <div class="cert">Full-Stack JavaScript Immersive — Hacktiv8 (2020)</div>
+    </section>
+
+    <section>
+        <h2>EDUCATION</h2>
+        <div class="education">Bachelor's Degree, Computer Science — Fu Jen Catholic University, Taipei (2006–2010)</div>
+    </section>
+
+    <section>
+        <h2>LANGUAGES</h2>
+        <div class="languages">Bahasa Indonesia (native) · English — IELTS General Training 7.0 (L 7.0 · R 7.5 · W 6.5 · S 7.0, 2025) · Mandarin · Hokkien</div>
+    </section>
+</body>
+</html>
