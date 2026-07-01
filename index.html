@@ -61,6 +61,38 @@
         body.recruiter-mode #recruiter-toggle .rt-off { display: none; }
         body.recruiter-mode #recruiter-toggle .rt-on { display: inline; }
 
+        /* Scroll progress bar (Tier 2) — GPU transform only; stays cheap. */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; height: 4px; width: 100%;
+            transform: scaleX(0); transform-origin: left;
+            background: linear-gradient(90deg, #48bb78, #9ae6b4);
+            z-index: 60; pointer-events: none; will-change: transform;
+        }
+
+        /* Jargon tooltips (Tier 2) — hover/focus to explain acronyms. Works in
+           both modes (helps HR too). Pure CSS, no JS. */
+        .term { border-bottom: 1px dotted currentColor; cursor: help; position: relative; }
+        .term::after {
+            content: attr(data-tip);
+            position: absolute; left: 50%; bottom: 135%;
+            transform: translateX(-50%) translateY(4px);
+            background: #1a202c; color: #e2e8f0; border: 1px solid #48bb78;
+            padding: 6px 10px; border-radius: 6px; width: max-content; max-width: 240px;
+            font-size: 0.75rem; line-height: 1.35; font-style: normal; white-space: normal;
+            text-align: left; opacity: 0; pointer-events: none;
+            transition: opacity 0.15s ease, transform 0.15s ease;
+            z-index: 70; box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+        }
+        .term:hover::after, .term:focus::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* Easter-egg floating emoji (Tier 3) — a few short-lived nodes, auto-removed. */
+        .egg-emoji { position: fixed; z-index: 9998; pointer-events: none; animation: eggFloat 1.6s ease-out forwards; }
+        @keyframes eggFloat {
+            0%   { opacity: 0; transform: translateY(0) scale(0.6); }
+            20%  { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-170px) scale(1.25); }
+        }
+
         /* Custom styles for language proficiency dots (Health/Mana Bar style) */
         .lang-dot {
             width: 16px; /* Larger dots */
@@ -364,6 +396,7 @@
     <button id="recruiter-toggle" class="fixed top-4 right-4 bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full shadow-lg z-50 transition-colors duration-200 no-print" title="Switch between the game view and a clean recruiter-friendly view">
         <span class="rt-off">🎮 Recruiter Mode</span><span class="rt-on">✨ Game Mode</span>
     </button>
+    <div id="scroll-progress" class="no-print"></div>
 
     <!-- Scroll to Contact Button -->
     <button id="scroll-to-contact-button" class="fixed bottom-4 left-4 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-6 rounded-full shadow-lg z-50 transition-colors duration-200 no-print flex items-center space-x-2">
@@ -498,7 +531,7 @@
                             </div>
                         </summary>
                         <div class="accordion-content p-4 sm:p-6">
-                            <p class="text-gray-300 mb-3">A multi-tenant electronic medical record system: patient registration, queue, SOAP consultation, ICD-10 diagnosis, prescriptions, pediatric growth charts, and billing, with a webhook integration to a paired pharmacy ERP. In pilot with a partner GP clinic.</p>
+                            <p class="text-gray-300 mb-3">A multi-tenant electronic medical record system: patient registration, queue, SOAP consultation, <span class="term" data-tip="International Classification of Diseases, 10th revision — the standard medical diagnosis codes.">ICD-10</span> diagnosis, prescriptions, pediatric growth charts, and billing, with a webhook integration to a paired pharmacy ERP. In pilot with a partner GP clinic.</p>
                             <p class="text-gray-300 mb-2"><strong>Stack:</strong> Next.js, Prisma, PostgreSQL, Tailwind</p>
                         </div>
                     </details>
@@ -513,7 +546,7 @@
                             </div>
                         </summary>
                         <div class="accordion-content p-4 sm:p-6">
-                            <p class="text-gray-300 mb-3">A browser-based multi-game platform (Dockerized multi-service: lobby, wallet, auth, real-time play) architected for expansion via partner APIs. Plus supporting systems: a pharmacy ERP with a FEFO stock engine, a stock-market signal bot with a multi-agent validation panel, and a GPU job-routing control plane shared across these projects.</p>
+                            <p class="text-gray-300 mb-3">A browser-based multi-game platform (Dockerized multi-service: lobby, wallet, auth, real-time play) architected for expansion via partner APIs. Plus supporting systems: a pharmacy ERP with a <span class="term" data-tip="First-Expiry-First-Out — an inventory rule that dispenses the soonest-to-expire stock first.">FEFO</span> stock engine, a stock-market signal bot with a multi-agent validation panel, and a GPU job-routing control plane shared across these projects.</p>
                             <p class="text-gray-300 mb-2"><strong>Stack:</strong> Next.js, Node.js, WebSocket, Docker</p>
                         </div>
                     </details>
@@ -528,7 +561,7 @@
                             </div>
                         </summary>
                         <div class="accordion-content p-4 sm:p-6">
-                            <p class="text-gray-300 mb-3">A multi-tenant SaaS platform for restaurants: customers scan a per-table QR to browse the menu and order from their phone; merchants run orders, kitchen display, tables, and billing from one dashboard. Includes payment integration (Midtrans/QRIS), real-time order updates, and food-delivery-platform integrations (GrabFood, GoFood, ShopeeFood). In development (pre-launch).</p>
+                            <p class="text-gray-300 mb-3">A multi-tenant SaaS platform for restaurants: customers scan a per-table QR to browse the menu and order from their phone; merchants run orders, kitchen display, tables, and billing from one dashboard. Includes payment integration (Midtrans/<span class="term" data-tip="Indonesia's national QR-code payment standard.">QRIS</span>), real-time order updates, and food-delivery-platform integrations (GrabFood, GoFood, ShopeeFood). In development (pre-launch).</p>
                             <p class="text-gray-300 mb-2"><strong>Stack:</strong> Next.js, React, TypeScript, Supabase/PostgreSQL, Prisma</p>
                         </div>
                     </details>
@@ -543,7 +576,7 @@
                             </div>
                         </summary>
                         <div class="accordion-content p-4 sm:p-6">
-                            <p class="text-gray-300 mb-3">A generative-media pipeline that fine-tunes per-character LoRA adapters on the FLUX diffusion model to produce consistent, clearly-disclosed AI brand ambassadors across images and short-form video. Covers the full loop — dataset curation, training, and batched GPU inference.</p>
+                            <p class="text-gray-300 mb-3">A generative-media pipeline that fine-tunes per-character <span class="term" data-tip="Low-Rank Adaptation — a lightweight technique to fine-tune large AI models on a specific subject.">LoRA</span> adapters on the FLUX diffusion model to produce consistent, clearly-disclosed AI brand ambassadors across images and short-form video. Covers the full loop — dataset curation, training, and batched GPU inference.</p>
                             <p class="text-gray-300 mb-2"><strong>Stack:</strong> Python, FLUX, LoRA / diffusion fine-tuning, GPU inference</p>
                         </div>
                     </details>
@@ -1237,7 +1270,10 @@
         const walkingSpeechBubbles = [
             "Come here!",
             "I'm coming to get you!",
-            "Stop there!"
+            "Stop there!",
+            "Psst… try typing 'cheese' 🧀",
+            "Hungry? type 'tea' 🍵",
+            "Type 'pizza' for a treat 🍕"
         ];
         const collisionSpeechBubbles = [
             "Best architect? No quacks!",
@@ -1620,6 +1656,48 @@
         try {
             if (localStorage.getItem('recruiterMode') === '1') setRecruiterMode(true);
         } catch (e) {}
+
+        // Scroll progress bar (Tier 2) — passive listener, transform-only update.
+        const scrollProgress = document.getElementById('scroll-progress');
+        function updateScrollProgress() {
+            const h = document.documentElement;
+            const max = h.scrollHeight - h.clientHeight;
+            scrollProgress.style.transform = `scaleX(${max > 0 ? h.scrollTop / max : 0})`;
+        }
+        window.addEventListener('scroll', updateScrollProgress, { passive: true });
+        updateScrollProgress();
+
+        // Easter egg (Tier 3) — type a fun word and the duck celebrates.
+        // The duck hints at this via its speech bubbles. Disabled in recruiter mode.
+        const eggWords = { cheese: '🧀', tea: '🍵', pizza: '🍕', duck: '🦆', coffee: '☕' };
+        let typedBuffer = '';
+        document.addEventListener('keydown', (e) => {
+            if (!e.key || e.key.length !== 1) return;
+            typedBuffer = (typedBuffer + e.key.toLowerCase()).slice(-12);
+            for (const word in eggWords) {
+                if (typedBuffer.endsWith(word)) {
+                    triggerEasterEgg(word, eggWords[word]);
+                    typedBuffer = '';
+                    break;
+                }
+            }
+        });
+        function triggerEasterEgg(word, emoji) {
+            if (document.body.classList.contains('recruiter-mode')) return; // keep HR view clean
+            const rect = duckAvatar.getBoundingClientRect();
+            for (let i = 0; i < 8; i++) {
+                const s = document.createElement('span');
+                s.className = 'egg-emoji';
+                s.textContent = emoji;
+                s.style.left = (rect.left + rect.width / 2 + (Math.random() * 90 - 45)) + 'px';
+                s.style.top = (rect.top + Math.random() * 25) + 'px';
+                s.style.fontSize = (1.4 + Math.random() * 1.1) + 'rem';
+                document.body.appendChild(s);
+                setTimeout(() => s.remove(), 1700);
+            }
+            showSpeechBubble(`${emoji} ${word.charAt(0).toUpperCase()}${word.slice(1)}!`, 'egg');
+            setTimeout(hideSpeechBubble, 1400);
+        }
 
         scrollToContactButton.addEventListener('click', () => {
             contactMeSection.scrollIntoView({ behavior: 'smooth' });
