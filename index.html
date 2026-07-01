@@ -216,6 +216,12 @@
            buttery without forcing repaints. Cheap; keeps the page fast. */
         #duck-avatar, #duck-inner { will-change: transform; }
 
+        /* Match applyDuckSize() so mobile paints at the small size immediately
+           (no 120px->76px flash before JS runs). */
+        @media (max-width: 768px) {
+            #duck-avatar { width: 76px; height: 76px; }
+        }
+
         #duck-inner {
             width: 100%;
             height: 100%;
