@@ -144,6 +144,12 @@
             z-index: 9999; /* Ensure it's on top */
         }
 
+        /* Hide the roaming duck + speech bubble on small screens so the résumé
+           reads clean and professional for recruiters reviewing on mobile. */
+        @media (max-width: 768px) {
+            #duck-avatar { display: none !important; }
+        }
+
         #duck-inner {
             width: 100%;
             height: 100%;
@@ -198,7 +204,7 @@
             padding: 5px 10px;
             border-radius: 8px;
             font-family: 'Press Start 2P', cursive;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             white-space: nowrap;
             opacity: 0; /* Hidden by default */
             transition: opacity 0.3s ease-in-out;
@@ -412,8 +418,8 @@
                     <h2 class="text-3xl sm:text-4xl font-bold text-green-400 border-b-4 border-green-500 pb-4 mb-8 tracking-wide">ADVENTURE LOG</h2>
 
                     <!-- Boss Fights (Flagship AI Systems) -->
-                    <h3 class="text-2xl font-bold text-yellow-400 border-b-2 border-yellow-500 pb-2 mb-6">BOSS FIGHTS (Flagship AI Systems)</h3>
-                    <p class="text-gray-400 italic mb-6">⭐ Systems I architected and directed agentic AI to build (2025–present).</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-yellow-400 border-b-2 border-yellow-500 pb-2 mb-6">BOSS FIGHTS (Flagship AI Systems)</h3>
+                    <p class="text-gray-400 italic mb-6">⭐ <span class="not-italic font-semibold text-yellow-300">Featured</span> — the production systems I architected and directed agentic AI to build (2025–present). My full reverse-chronological work history follows below.</p>
 
                     <!-- FLAGSHIP-1: SHAI -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6" open>
@@ -521,7 +527,7 @@
                     </details>
 
                     <!-- Main Quests (Work Experience) -->
-                    <h3 class="text-2xl font-bold text-yellow-400 border-b-2 border-yellow-500 pb-2 mb-6 mt-12">MAIN QUESTS (Work Experience)</h3>
+                    <h3 class="text-xl sm:text-2xl font-bold text-yellow-400 border-b-2 border-yellow-500 pb-2 mb-6 mt-12">MAIN QUESTS (Work Experience)</h3>
 
                     <!-- IT Manager - Lanesborough -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
@@ -681,7 +687,7 @@
                         </div>
                     </details>
 
-                    <h3 class="text-2xl font-bold text-yellow-400 border-b-2 border-yellow-500 pb-2 mb-6 mt-10">SIDE QUESTS (Earlier Projects)</h3>
+                    <h3 class="text-xl sm:text-2xl font-bold text-yellow-400 border-b-2 border-yellow-500 pb-2 mb-6 mt-10">SIDE QUESTS (Earlier Projects)</h3>
 
                     <!-- PROJECT-1: BKKBoutique -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
