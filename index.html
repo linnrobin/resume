@@ -38,6 +38,29 @@
             text-shadow: 2px 2px 0px #2f855a; /* Pixel art shadow */
         }
 
+        /* ---- Recruiter Mode: a clean, de-gamified view for traditional HR ----
+           Toggle adds .recruiter-mode to <body>. Content is identical; only the
+           game skin is stripped. Plain section labels (.p-label) replace the
+           game labels (.g-label), pixel fonts become Inter, and the duck /
+           parallax / speech bubble are hidden. Cheap CSS-only swap — no reflow
+           cost beyond a class toggle, so the page stays fast. */
+        .p-label { display: none; }
+        body.recruiter-mode .g-label { display: none; }
+        body.recruiter-mode .p-label { display: inline; }
+        body.recruiter-mode h1,
+        body.recruiter-mode h2,
+        body.recruiter-mode h3 {
+            font-family: 'Inter', sans-serif !important;
+            text-shadow: none !important;
+            letter-spacing: -0.01em;
+        }
+        body.recruiter-mode #duck-avatar,
+        body.recruiter-mode #speech-bubble,
+        body.recruiter-mode .parallax-layer { display: none !important; }
+        #recruiter-toggle .rt-on { display: none; }
+        body.recruiter-mode #recruiter-toggle .rt-off { display: none; }
+        body.recruiter-mode #recruiter-toggle .rt-on { display: inline; }
+
         /* Custom styles for language proficiency dots (Health/Mana Bar style) */
         .lang-dot {
             width: 16px; /* Larger dots */
@@ -338,6 +361,9 @@
     <button id="mute-button" class="fixed top-4 left-4 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-full shadow-lg z-50 transition-colors duration-200 no-print">
         Mute Sound
     </button>
+    <button id="recruiter-toggle" class="fixed top-4 right-4 bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full shadow-lg z-50 transition-colors duration-200 no-print" title="Switch between the game view and a clean recruiter-friendly view">
+        <span class="rt-off">🎮 Recruiter Mode</span><span class="rt-on">✨ Game Mode</span>
+    </button>
 
     <!-- Scroll to Contact Button -->
     <button id="scroll-to-contact-button" class="fixed bottom-4 left-4 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-6 rounded-full shadow-lg z-50 transition-colors duration-200 no-print flex items-center space-x-2">
@@ -426,10 +452,10 @@
             <div class="lg:col-span-2 space-y-10">
                 <!-- Adventure Log Section -->
                 <section>
-                    <h2 class="text-2xl sm:text-4xl font-bold text-green-400 border-b-4 border-green-500 pb-4 mb-8 tracking-wide">ADVENTURE LOG</h2>
+                    <h2 class="text-2xl sm:text-4xl font-bold text-green-400 border-b-4 border-green-500 pb-4 mb-8 tracking-wide"><span class="g-label">ADVENTURE LOG</span><span class="p-label">Experience &amp; Projects</span></h2>
 
                     <!-- Boss Fights (Flagship AI Systems) -->
-                    <h3 class="text-xl sm:text-2xl font-bold text-yellow-400 border-b-2 border-yellow-500 pb-2 mb-6">BOSS FIGHTS (Flagship AI Systems)</h3>
+                    <h3 class="text-xl sm:text-2xl font-bold text-yellow-400 border-b-2 border-yellow-500 pb-2 mb-6"><span class="g-label">BOSS FIGHTS (Flagship AI Systems)</span><span class="p-label">Flagship AI Systems</span></h3>
                     <p class="text-gray-400 italic mb-6">⭐ <span class="not-italic font-semibold text-yellow-300">Featured</span> — the production systems I architected and directed agentic AI to build (2025–present). My full reverse-chronological work history follows below.</p>
 
                     <!-- FLAGSHIP-1: SHAI -->
@@ -538,7 +564,7 @@
                     </details>
 
                     <!-- Main Quests (Work Experience) -->
-                    <h3 class="text-xl sm:text-2xl font-bold text-yellow-400 border-b-2 border-yellow-500 pb-2 mb-6 mt-12">MAIN QUESTS (Work Experience)</h3>
+                    <h3 class="text-xl sm:text-2xl font-bold text-yellow-400 border-b-2 border-yellow-500 pb-2 mb-6 mt-12"><span class="g-label">MAIN QUESTS (Work Experience)</span><span class="p-label">Work Experience</span></h3>
 
                     <!-- IT Manager - Lanesborough -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
@@ -698,7 +724,7 @@
                         </div>
                     </details>
 
-                    <h3 class="text-xl sm:text-2xl font-bold text-yellow-400 border-b-2 border-yellow-500 pb-2 mb-6 mt-10">SIDE QUESTS (Earlier Projects)</h3>
+                    <h3 class="text-xl sm:text-2xl font-bold text-yellow-400 border-b-2 border-yellow-500 pb-2 mb-6 mt-10"><span class="g-label">SIDE QUESTS (Earlier Projects)</span><span class="p-label">Earlier Projects</span></h3>
 
                     <!-- PROJECT-1: BKKBoutique -->
                     <details class="rounded-xl shadow-lg overflow-hidden mb-6">
@@ -1000,7 +1026,7 @@
 
                 <!-- Training Grounds (Education Section) -->
                 <section>
-                    <h2 class="text-2xl sm:text-4xl font-bold text-green-400 border-b-4 border-green-500 pb-4 mb-8 tracking-wide">TRAINING GROUNDS</h2>
+                    <h2 class="text-2xl sm:text-4xl font-bold text-green-400 border-b-4 border-green-500 pb-4 mb-8 tracking-wide"><span class="g-label">TRAINING GROUNDS</span><span class="p-label">Education</span></h2>
                     <div class="p-6 bg-gray-700 rounded-xl shadow-lg border-2 border-gray-600 text-gray-300">
                         <h3 class="text-xl font-semibold text-green-300 mb-1">Bachelor's degree, Computer Science</h3>
                         <p class="text-base text-gray-200">Fu Jen Catholic University - Taiwan</p>
@@ -1013,7 +1039,7 @@
             <div class="lg:col-span-1 space-y-10">
                 <!-- Quest Log (Summary Section) -->
                 <section class="p-6 bg-gray-700 rounded-xl shadow-lg border-2 border-gray-600">
-                    <h2 class="text-2xl font-bold text-green-400 border-b-2 border-green-500 pb-3 mb-4">QUEST LOG</h2>
+                    <h2 class="text-2xl font-bold text-green-400 border-b-2 border-green-500 pb-3 mb-4"><span class="g-label">QUEST LOG</span><span class="p-label">Links &amp; Artifacts</span></h2>
                     <h3 class="text-lg font-semibold text-green-300 mb-3">Artifacts Discovered:</h3>
                     <ul class="list-disc list-inside text-gray-300 space-y-2">
                         <li>Project Management Work : <a href="https://sudo.ingo.io" target="_blank" class="text-blue-400 hover:underline hover:text-blue-300 transition-colors duration-200">https://sudo.ingo.io</a></li>
@@ -1024,7 +1050,7 @@
 
                 <!-- Legendary Feats (Key Achievements Section) -->
                 <section class="p-6 bg-gray-700 rounded-xl shadow-lg border-2 border-gray-600">
-                    <h2 class="text-2xl font-bold text-green-400 border-b-2 border-green-500 pb-3 mb-4">LEGENDARY FEATS</h2>
+                    <h2 class="text-2xl font-bold text-green-400 border-b-2 border-green-500 pb-3 mb-4"><span class="g-label">LEGENDARY FEATS</span><span class="p-label">Key Achievements</span></h2>
                     <div class="space-y-5 text-gray-300">
                         <div class="flex items-start">
                             <svg class="w-7 h-7 text-yellow-400 mr-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 6a3 3 0 013-3h10a2 2 0 012 2v8a2 2 0 01-2 2H6.5L1 18V6a3 3 0 013-3zm7.586 1.586a2 2 0 102.828 2.828L15 10.828V12h-1.172l-4.242-4.242z" clip-rule="evenodd"></path></svg>
@@ -1059,7 +1085,7 @@
 
                 <!-- Abilities Unlocked (Skills Section) -->
                 <section class="p-6 bg-gray-700 rounded-xl shadow-lg border-2 border-gray-600">
-                    <h2 class="text-2xl font-bold text-green-400 border-b-2 border-green-500 pb-3 mb-4">ABILITIES UNLOCKED</h2>
+                    <h2 class="text-2xl font-bold text-green-400 border-b-2 border-green-500 pb-3 mb-4"><span class="g-label">ABILITIES UNLOCKED</span><span class="p-label">Skills</span></h2>
                     <p class="text-sm text-green-300 font-semibold mb-2">Core — hands-on, current</p>
                     <div class="flex flex-wrap gap-3 text-base mb-4">
                         <span class="skill-tag px-3 py-2 sm:px-4 sm:py-3">System &amp; Solution Architecture</span>
@@ -1141,7 +1167,7 @@
 
                 <!-- Guild Certifications (Certification Section) -->
                 <section class="p-6 bg-gray-700 rounded-xl shadow-lg border-2 border-gray-600">
-                    <h2 class="text-sm sm:text-xl md:text-2xl font-bold text-green-400 border-b-2 border-green-500 pb-3 mb-4 whitespace-normal break-words overflow-hidden">GUILD CERTIFICATIONS</h2>
+                    <h2 class="text-sm sm:text-xl md:text-2xl font-bold text-green-400 border-b-2 border-green-500 pb-3 mb-4 whitespace-normal break-words overflow-hidden"><span class="g-label">GUILD CERTIFICATIONS</span><span class="p-label">Certifications</span></h2>
                     <ul class="list-disc list-inside text-gray-300 space-y-3">
                         <li class="break-words"><span class="font-medium text-green-300 text-base sm:text-lg">Fullstack Javascript Immersive Program</span> <br><span class="text-sm text-gray-400 text-xs sm:text-sm">Hacktiva Indonesia</span></li>
                         <li class="break-words"><span class="font-medium text-green-300 text-base sm:text-lg">Project Management Professional (PMP)</span> <br><span class="text-sm text-gray-400 text-xs sm:text-sm">Project Management Institute</span></li>
@@ -1580,6 +1606,20 @@
             Tone.Destination.mute = isMuted;
             muteButton.textContent = isMuted ? 'Unmute Sound' : 'Mute Sound';
         });
+
+        // Recruiter Mode: strip the game skin to a clean HR-friendly view.
+        // Remembers the visitor's choice across visits.
+        const recruiterToggle = document.getElementById('recruiter-toggle');
+        function setRecruiterMode(on) {
+            document.body.classList.toggle('recruiter-mode', on);
+            try { localStorage.setItem('recruiterMode', on ? '1' : '0'); } catch (e) {}
+        }
+        recruiterToggle.addEventListener('click', () => {
+            setRecruiterMode(!document.body.classList.contains('recruiter-mode'));
+        });
+        try {
+            if (localStorage.getItem('recruiterMode') === '1') setRecruiterMode(true);
+        } catch (e) {}
 
         scrollToContactButton.addEventListener('click', () => {
             contactMeSection.scrollIntoView({ behavior: 'smooth' });
