@@ -394,24 +394,26 @@
                 box-shadow: none !important;
                 border: 1px solid #ccc !important;
             }
-            /* Print: the screen fixes above assume a DARK panel, but the summary keeps its
-               dark background in print while Chrome does not paint backgrounds by default --
-               so neither a light nor a dark text colour is safe on its own. Force the summary
-               light and the text ink-dark: correct whether or not backgrounds get painted. */
-            details summary,
-            details[open] summary {
-                background-color: #e8e8e8 !important;
-                border-color: #999 !important;
+            /* Print normalisation. The site is dark-themed, but the rules above repaint the
+               bands light (#e0e0e0) while every Tailwind text token keeps its DARK-theme
+               colour -- which is why the profile paragraph and the LinkedIn/GitHub/site links
+               came out invisible on paper (1.12:1), while phone and email survived. Chrome
+               also does not paint backgrounds by default, so a dark panel may print as white.
+               Fix both directions at once: every surface prints light, every text prints ink. */
+            .bg-gray-600, .bg-gray-700, .bg-gray-800, .bg-gray-900,
+            details summary, details[open] summary, details .accordion-content {
+                background-color: #f2f2f2 !important;
+                border-color: #bbb !important;
             }
-            details summary,
-            details summary *,
-            details[open] summary,
-            details[open] summary * {
+            header, header *,
+            section, section *,
+            footer, footer *,
+            details, details * {
                 color: #222 !important;
+                text-shadow: none !important;
             }
-            .bg-gray-700 .text-gray-400,
-            .bg-gray-700 a.text-blue-400 {
-                color: #333 !important;
+            a, a * {
+                color: #111 !important;
             }
             details summary::after, details[open] summary::after {
                 content: '';
