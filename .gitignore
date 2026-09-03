@@ -1,0 +1,18 @@
+# This repo is PUBLIC (GitHub Pages). Anything below is private working material
+# and must never be published by a stray `git add -A`. Verified 2026-09-03: none
+# of it has ever been committed.
+
+# job-search automation, its scored output, and the ATS/board sources
+watcher/
+jobs-app/
+
+# the tailnet portal: tailored CVs, cover letters, Gold Card documents,
+# certificates, the job tracker and the relocation dashboard
+portal/
+
+# CV/HTML sources, drafts of messages, audit scripts and screenshots
+scratchpad/
+
+# python noise
+__pycache__/
+*.pyc
