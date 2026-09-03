@@ -139,6 +139,29 @@
             border-color: #38a169;
         }
 
+        /* --- WCAG AA contrast fixes (2026-09-02) ------------------------------------
+           The muted meta text in an accordion header sits on TWO different backgrounds:
+           the slate summary when closed, and the green summary when open. One Tailwind
+           token cannot clear 4.5:1 against both, so scope it by state instead.
+           Ratios measured with portal/ui_audit.py. */
+        details summary span.text-gray-500 {
+            color: #a0aec0;             /* on #2d3748 closed summary -> 5.32:1 (was 2.48) */
+        }
+        details[open] summary span.text-gray-500,
+        details[open] summary .text-gray-400 {
+            color: #1a202c;             /* on #48bb78 open summary   -> 6.73:1 (was 1.99/1.05) */
+        }
+        /* muted text and links inside the gray-700 panels (certs, education, links) */
+        .bg-gray-700 .text-gray-400 {
+            color: #cbd5e0;             /* on #374151 -> 6.94:1 (was 4.06) */
+        }
+        .bg-gray-700 a.text-blue-400 {
+            color: #93c5fd;             /* on #374151 -> 5.72:1 (was 4.05) */
+        }
+        .bg-gray-700 a.text-blue-400:hover {
+            color: #bfdbfe;             /* -> 7.25:1 */
+        }
+
         details summary::-webkit-details-marker {
             display: none;
         }
@@ -370,6 +393,25 @@
                 color: #333 !important;
                 box-shadow: none !important;
                 border: 1px solid #ccc !important;
+            }
+            /* Print: the screen fixes above assume a DARK panel, but the summary keeps its
+               dark background in print while Chrome does not paint backgrounds by default --
+               so neither a light nor a dark text colour is safe on its own. Force the summary
+               light and the text ink-dark: correct whether or not backgrounds get painted. */
+            details summary,
+            details[open] summary {
+                background-color: #e8e8e8 !important;
+                border-color: #999 !important;
+            }
+            details summary,
+            details summary *,
+            details[open] summary,
+            details[open] summary * {
+                color: #222 !important;
+            }
+            .bg-gray-700 .text-gray-400,
+            .bg-gray-700 a.text-blue-400 {
+                color: #333 !important;
             }
             details summary::after, details[open] summary::after {
                 content: '';
